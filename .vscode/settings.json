@@ -9,9 +9,6 @@
         "editor.formatOnType": true,
         "editor.defaultFormatter": "ms-python.black-formatter",
     },
-    "pylint.args": [
-        "--generate-members"
-    ],
     //
     // Window/View Settings
     //
@@ -22,7 +19,6 @@
     "window.confirmBeforeClose": "keyboardOnly",
     "workbench.iconTheme": "vscode-icons",
     "workbench.activityBar.location": "top",
-    "workbench.editor.showTabs": "single",
     //
     // Editor Settings
     //

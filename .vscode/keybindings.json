@@ -28,6 +28,130 @@
         "key": "ctrl+l",
         "command": "workbench.action.nextEditor"
     },
+    // Rebind "Ctrl+/" to find, since Neovim extension supports
+    // using "gc" and a motion for commenting out code
+    {
+        "key": "ctrl+/",
+        "command": "actions.find"
+    },
+    // Rebind "Ctrl+\" to replace, since Neovim extension supports
+    // using "<C-w>v" for vertical window split
+    {
+        "key": "ctrl+\\",
+        "command": "editor.action.startFindReplaceAction"
+    },
+    // Hack scroll up/down behavior to focus window on cursor afterwards
+    {
+        "key": "ctrl+u",
+        "command": "runCommands",
+        "when": "editorTextFocus && neovim.ctrlKeysNormal.u && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'",
+        "args": {
+            "commands": [
+                "vscode-neovim.ctrl-u",
+                {
+                    "command": "vscode-neovim.send",
+                    "args": "M"
+                }
+            ]
+        }
+    },
+    {
+        "key": "ctrl+u",
+        "command": "-vscode-neovim.ctrl-u",
+        "when": "editorTextFocus && neovim.ctrlKeysNormal.u && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'"
+    },
+    {
+        "key": "ctrl+d",
+        "command": "runCommands",
+        "when": "editorTextFocus && neovim.ctrlKeysNormal.u && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'",
+        "args": {
+            "commands": [
+                "vscode-neovim.ctrl-d",
+                {
+                    "command": "vscode-neovim.send",
+                    "args": "M"
+                }
+            ]
+        }
+    },
+    {
+        "key": "ctrl+d",
+        "command": "-vscode-neovim.ctrl-d",
+        "when": "editorTextFocus && neovim.ctrlKeysNormal.d && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'"
+    },
+    {
+        "key": "ctrl+b",
+        "command": "runCommands",
+        "when": "editorTextFocus && neovim.ctrlKeysNormal.b && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'",
+        "args": {
+            "commands": [
+                "vscode-neovim.ctrl-b",
+                {
+                    "command": "vscode-neovim.send",
+                    "args": "M"
+                }
+            ]
+        }
+    },
+    {
+        "key": "ctrl+b",
+        "command": "-vscode-neovim.ctrl-b",
+        "when": "editorTextFocus && neovim.ctrlKeysNormal.b && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'"
+    },
+    {
+        "key": "ctrl+f",
+        "command": "runCommands",
+        "when": "editorTextFocus && neovim.ctrlKeysNormal.f && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'",
+        "args": {
+            "commands": [
+                "vscode-neovim.ctrl-f",
+                {
+                    "command": "vscode-neovim.send",
+                    "args": "M"
+                }
+            ]
+        }
+    },
+    {
+        "key": "ctrl+f",
+        "command": "-vscode-neovim.ctrl-f",
+        "when": "editorTextFocus && neovim.ctrlKeysNormal.f && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'"
+    },
+    // Exit visual/selection mode for entries in jumplist when navigating
+    // with <C-i>/<C-o>, as that behavior does not match normal Neovim,
+    // and prevents navigating forth/back repeatedly by mashing buttons
+    {
+        "key": "ctrl+i",
+        "command": "runCommands",
+        "when": "editorTextFocus && neovim.ctrlKeysNormal.i && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'",
+        "args": {
+            "commands": [
+                "workbench.action.navigateForward",
+                "cancelSelection"
+            ]
+        }
+    },
+    {
+        "key": "ctrl+i",
+        "command": "-vscode-neovim.send",
+        "when": "editorTextFocus && neovim.ctrlKeysNormal.i && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'"
+    },
+    {
+        "key": "ctrl+o",
+        "command": "runCommands",
+        "when": "editorTextFocus && neovim.ctrlKeysNormal.o && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'",
+        "args": {
+            "commands": [
+                "workbench.action.navigateBack",
+                "cancelSelection"
+            ]
+        }
+    },
+    {
+        "key": "ctrl+o",
+        "command": "-vscode-neovim.send",
+        "when": "editorTextFocus && neovim.ctrlKeysNormal.o && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'"
+    },
     // Default list select from search puts the editor
     // into Visual mode, which is not normal Neovim
     // behavior when using an equivalent like Telescope
