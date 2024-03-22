@@ -170,5 +170,27 @@
         "key": "enter",
         "command": "-list.select",
         "when": "listFocus && !inputFocus && !notebookCellListFocused"
+    },
+    // Use "Ctrl+<Arrow>" for window navigation, since <C-w><Arrow> takes longer
+    // and feels a bit inconsistent in VSCode
+    {
+        "key": "ctrl+up",
+        "command": "workbench.action.navigateUp",
+        "when": "neovim.mode == 'normal'"
+    },
+    {
+        "key": "ctrl+down",
+        "command": "workbench.action.navigateDown",
+        "when": "neovim.mode == 'normal'"
+    },
+    {
+        "key": "ctrl+left",
+        "command": "workbench.action.navigateLeft",
+        "when": "neovim.mode == 'normal'"
+    },
+    {
+        "key": "ctrl+right",
+        "command": "workbench.action.navigateRight",
+        "when": "neovim.mode == 'normal'"
     }
 ]
