@@ -192,5 +192,22 @@
         "key": "ctrl+right",
         "command": "workbench.action.navigateRight",
         "when": "neovim.mode == 'normal'"
+    },
+    // Rebind collapse list from "Ctrl+LeftArrow" since it conflicts with
+    // the window navigation rebinds
+    {
+        "key": "ctrl+shift+left",
+        "command": "list.collapseAll",
+        "when": "listFocus && !inputFocus && !treestickyScrollFocused"
+    },
+    {
+        "key": "ctrl+left",
+        "command": "-list.collapseAll",
+        "when": "listFocus && !inputFocus && !treestickyScrollFocused"
+    },
+    {
+        "key": "ctrl+shift+right",
+        "command": "list.toggleExpand",
+        "when": "listFocus && !inputFocus && !treestickyScrollFocused"
     }
 ]
