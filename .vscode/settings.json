@@ -25,7 +25,6 @@
     "editor.lineNumbers": "relative",
     "editor.autoClosingBrackets": "never",
     "editor.fontFamily": "DroidSansM Nerd Font, Consolas, 'Courier New', monospace",
-    "editor.fontSize": 13,
     "editor.renderWhitespace": "trailing",
     "editor.stickyScroll.enabled": false,
     //
@@ -46,7 +45,7 @@
     "apc.menubar.compact": true,
     "apc.electron": {
         "frame": false,
-        "opacity": 0.995
+        "opacity": 0.9995
     },
     "apc.stylesheet": {
         // Don't indent the sidebar title. We want it horizontally aligned to the left so that it makes a
