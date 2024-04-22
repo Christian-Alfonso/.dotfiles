@@ -209,5 +209,25 @@
         "key": "ctrl+shift+right",
         "command": "list.toggleExpand",
         "when": "listFocus && !inputFocus && !treestickyScrollFocused"
+    },
+    // Rebind Ctrl+n and Ctrl+p to go to next/previous problems
+    // in current file, respectively
+    {
+        "key": "ctrl+n",
+        "command": "editor.action.marker.next",
+        "when": "editorTextFocus && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'",
+    },
+    {
+        "key": "ctrl+n",
+        "command": "-workbench.action.files.newUntitledFile"
+    },
+    {
+        "key": "ctrl+p",
+        "command": "editor.action.marker.prev",
+        "when": "editorTextFocus && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'",
+    },
+    {
+        "key": "ctrl+p",
+        "command": "-workbench.action.quickOpen"
     }
 ]
