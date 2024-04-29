@@ -28,18 +28,6 @@
         "key": "ctrl+l",
         "command": "workbench.action.nextEditor"
     },
-    // Rebind "Ctrl+/" to find, since Neovim extension supports
-    // using "gc" and a motion for commenting out code
-    {
-        "key": "ctrl+/",
-        "command": "actions.find"
-    },
-    // Rebind "Ctrl+\" to replace, since Neovim extension supports
-    // using "<C-w>v" for vertical window split
-    {
-        "key": "ctrl+\\",
-        "command": "editor.action.startFindReplaceAction"
-    },
     // Hack scroll up/down behavior to focus window on cursor afterwards
     {
         "key": "ctrl+u",
@@ -215,7 +203,7 @@
     {
         "key": "ctrl+n",
         "command": "editor.action.marker.next",
-        "when": "editorTextFocus && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'",
+        "when": "editorTextFocus && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'"
     },
     {
         "key": "ctrl+n",
@@ -224,10 +212,58 @@
     {
         "key": "ctrl+p",
         "command": "editor.action.marker.prev",
-        "when": "editorTextFocus && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'",
+        "when": "editorTextFocus && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'"
     },
     {
         "key": "ctrl+p",
         "command": "-workbench.action.quickOpen"
+    },
+    // Rebind Enter and Shift+Enter when using VSCode's find so that
+    // they act like pressing "n" or "N" in Neovim, which has a similar
+    // sequence of bindings in the Neovim configuration
+    {
+        "key": "enter",
+        "command": "runCommands",
+        "when": "editorFocus && findInputFocussed",
+        "args": {
+            "commands": [
+                "editor.action.nextMatchFindAction",
+                "closeFindWidget",
+                {
+                    "command": "vscode-neovim.send",
+                    "args": "zz"
+                },
+                "vscode-neovim.escape",
+                "cancelSelection"
+            ]
+        }
+    },
+    {
+        "key": "enter",
+        "command": "-editor.action.nextMatchFindAction",
+        "when": "editorFocus && findInputFocussed"
+    },
+    {
+        "key": "shift+enter",
+        "command": "runCommands",
+        "when": "editorFocus && findInputFocussed",
+        "args": {
+            "commands": [
+                "editor.action.previousMatchFindAction",
+                "cursorWordLeft",
+                "closeFindWidget",
+                {
+                    "command": "vscode-neovim.send",
+                    "args": "zz"
+                },
+                "vscode-neovim.escape",
+                "cancelSelection"
+            ]
+        }
+    },
+    {
+        "key": "shift+enter",
+        "command": "-editor.action.previousMatchFindAction",
+        "when": "editorFocus && findInputFocussed"
     }
 ]
