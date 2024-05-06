@@ -56,10 +56,11 @@ Configuration files for Tmux.
 Tmux documentation is limited, but is available at its repository on GitHub at https://github.com/tmux/tmux/wiki.
 
 Tmux is not available for Windows, so use WSL with Windows Terminal configuration to start normal PowerShell
-through Tmux in WSL.
+through Tmux in WSL. Configuration assumes version greater than 3.2 for Tmux, and that the default shell is
+Bash.
 
 Location:
 <details>
 <summary>Linux</summary>
-"%LocalAppData%\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
+"$HOME/.tmux.conf"
 </details>
