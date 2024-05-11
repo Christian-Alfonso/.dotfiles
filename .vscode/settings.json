@@ -61,7 +61,43 @@
     //
     // Miscellaneous Settings
     //
-    "terminal.integrated.defaultProfile.windows": "Command Prompt",
+    "terminal.integrated.profiles.windows": {
+        // Remove all built-in profiles, so that most of them can be redefined
+        // to use Tmux behind the scenes through the new profiles below.
+        "PowerShell": null,
+        "Command Prompt": null,
+        "Git Bash": null,
+        "JavaScript Debug Terminal": null,
+        "Ubuntu (WSL)": null,
+        // Redefine all removed built-in profiles using Tmux.
+        "Command Prompt [Tmux]": {
+            "path": "${env:localappdata}\\Microsoft\\WindowsApps\\ubuntu.exe",
+            "args": [
+                "run",
+                "tmux new-session",
+                "cmd.exe"
+            ],
+            "icon": "terminal-cmd"
+        },
+        "Powershell [Tmux]": {
+            "path": "${env:localappdata}\\Microsoft\\WindowsApps\\ubuntu.exe",
+            "args": [
+                "run",
+                "tmux new-session",
+                "powershell.exe"
+            ],
+            "icon": "terminal-powershell"
+        },
+        "Ubuntu (WSL) [Tmux]": {
+            "path": "${env:localappdata}\\Microsoft\\WindowsApps\\ubuntu.exe",
+            "args": [
+                "run",
+                "tmux new-session",
+            ],
+            "icon": "terminal-ubuntu"
+        },
+    },
+    "terminal.integrated.defaultProfile.windows": "Powershell [Tmux]",
     // Uncomment to make whitespace characters more visible -
     // unsure about how useful this really is
     //
