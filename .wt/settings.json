@@ -31,6 +31,10 @@
             "keys": "ctrl+pgup"
         },
         {
+            "command": "unbound",
+            "keys": "ctrl+shift+a"
+        },
+        {
             "command": 
             {
                 "action": "switchToTab",
@@ -83,16 +87,10 @@
                 "name": "Windows PowerShell (tmux)"
             },
             {
-                "commandline": "%SystemRoot%\\System32\\cmd.exe",
+                "commandline": "ubuntu.exe run \"tmux new-session \"cmd.exe\"\"",
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
                 "name": "Command Prompt"
-            },
-            {
-                "guid": "{b453ae62-4e3d-5e58-b989-0a998ec441b8}",
-                "hidden": false,
-                "name": "Azure Cloud Shell",
-                "source": "Windows.Terminal.Azure"
             },
             {
                 "commandline": "ubuntu.exe run \"tmux new-session\"",
@@ -103,30 +101,12 @@
                 "startingDirectory": "\\\\wsl.localhost\\Ubuntu\\home\\chris"
             },
             {
-                "commandline": "C:/msys64/msys2_shell.cmd -defterm -here -no-start -msys",
+                "commandline": "ubuntu.exe run \"tmux new-session \"cmd.exe /k call C:/msys64/msys2_shell.cmd -defterm -here -no-start -msys\"\"",
                 "guid": "{29e4e016-6428-4505-8901-554c612e61fb}",
                 "hidden": false,
                 "icon": "C:\\msys64\\msys2.ico",
                 "name": "MSYS / MSYS2",
                 "startingDirectory": "C:/msys64/home/%USERNAME%"
-            },
-            {
-                "guid": "{be2d42c7-c72a-5b6d-8c18-7a3d910c6f88}",
-                "hidden": false,
-                "name": "Developer Command Prompt for VS 2022",
-                "source": "Windows.Terminal.VisualStudio"
-            },
-            {
-                "guid": "{d82494ce-1553-567b-94c5-f6dc80c18ff0}",
-                "hidden": false,
-                "name": "Developer PowerShell for VS 2022",
-                "source": "Windows.Terminal.VisualStudio"
-            },
-            {
-                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
-                "hidden": true,
-                "name": "Ubuntu",
-                "source": "Windows.Terminal.Wsl"
             }
         ]
     },
