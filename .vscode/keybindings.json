@@ -199,24 +199,17 @@
         "when": "listFocus && !inputFocus && !treestickyScrollFocused"
     },
     // Rebind Ctrl+n and Ctrl+p to go to next/previous problems
-    // in current file, respectively
+    // in current file, respectively. These binds still work as
+    // the default behavior in empty editor groups or the "Welcome" page
     {
         "key": "ctrl+n",
         "command": "editor.action.marker.next",
         "when": "editorTextFocus && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'"
     },
     {
-        "key": "ctrl+n",
-        "command": "-workbench.action.files.newUntitledFile"
-    },
-    {
         "key": "ctrl+p",
         "command": "editor.action.marker.prev",
         "when": "editorTextFocus && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'"
-    },
-    {
-        "key": "ctrl+p",
-        "command": "-workbench.action.quickOpen"
     },
     // Rebind Enter and Shift+Enter when using VSCode's find so that
     // they act like pressing "n" or "N" in Neovim, which has a similar
@@ -275,5 +268,25 @@
         "key": "ctrl+f",
         "command": "-workbench.action.terminal.focusFind",
         "when": "terminalFindFocused && terminalHasBeenCreated || terminalFindFocused && terminalProcessSupported || terminalFocusInAny && terminalHasBeenCreated || terminalFocusInAny && terminalProcessSupported"
+    },
+    // Unbind Ctrl+Shift+c, as it will conflict with any console-based applications
+    // like Neovim that may want to use these shortcuts. Use Tmux's copy mode instead
+    // to copy any text from the terminal, or VSCode Neovim's visual mode to copy from output
+    {
+        "key": "ctrl+shift+c",
+        "command": "-workbench.action.terminal.openNativeConsole",
+        "when": "!terminalFocus"
+    },
+    {
+        "key": "ctrl+shift+c",
+        "command": "-workbench.action.terminal.copySelection",
+        "when": "terminalTextSelectedInFocused || terminalFocus && terminalHasBeenCreated && terminalTextSelected || terminalFocus && terminalProcessSupported && terminalTextSelected || terminalFocus && terminalTextSelected && terminalTextSelectedInFocused || terminalHasBeenCreated && terminalTextSelected && terminalTextSelectedInFocused || terminalProcessSupported && terminalTextSelected && terminalTextSelectedInFocused"
+    },
+    // Bind seems to be broken, even when not focused on text editor. It maps to normal
+    // Neovim bindings, so explicitly rebind it when editor is not focused
+    {
+        "key": "ctrl+k ctrl+o",
+        "command": "workbench.action.files.openFolder",
+        "when": "!editorFocus && openFolderWorkspaceSupport"
     }
 ]
