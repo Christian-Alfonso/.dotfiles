@@ -37,26 +37,33 @@
     "arduino.useArduinoCli": true,
     "powershell.startAutomatically": false,
     //
-    // APC Extension Settings
+    // APC Extension and Cosmetic Settings
     //
     "window.customTitleBarVisibility": "never",
-    "window.titleBarStyle": "native",
+    "window.titleBarStyle": "custom",
     "workbench.sideBar.location": "right",
+    "window.commandCenter": false,
+    "editor.cursorBlinking": "smooth",
+    "editor.cursorSmoothCaretAnimation": "explicit",
     "apc.menubar.compact": true,
     "apc.electron": {
         "frame": false,
+        "titleBarStyle": "hiddenInset",
+        "trafficLightPosition": {
+            "x": 7,
+            "y": 5
+        },
         "opacity": 0.9995
     },
+    "apc.activityBar": {
+        // Keep "size" or "itemSize" at 1 to prevent the icons
+        // from going into the "..." submenu.
+        "itemSize": 1,
+    },
     "apc.stylesheet": {
-        // Don't indent the sidebar title. We want it horizontally aligned to the left so that it makes a
-        // nice vertical column with the controls in the sidebar.
-        ".custom-sidebar-titlebar .sidebar .composite.title": "padding-left: 0;",
-        // Don't indent the sidebar title. Part 2 to remove the empty space to the left of the sidebar title
-        // and complete the proper horizontal left alignment.
-        ".custom-sidebar-titlebar .sidebar .composite.title .inline-titlebar-placeholder": "padding-left: 0 !important;",
-        // Don't indent the statusbar items. This horizontally aligns the statusbar items with the "Problems"
-        // header in the panel, which looks nice.
-        ".monaco-workbench .part.statusbar>.items-container>.statusbar-item.left.first-visible-item": "padding-left: 0;",
+        // Give the cursor a special look to it, glowing blue with rounded edges.
+        ".monaco-editor .cursors-layer.cursor-block-style .cursor": "transform: translateX(-1px); width: 9px !important; color: transparent; border-width: 1px; border-color: #ffffff8b; border-style: solid; border-radius: 2px; background: #ffffff4b",
+        ".monaco-editor .cursor": "background: linear-gradient(to bottom, #0FAFFF, #4aa6d4) !important; box-shadow: 0 0 42px 5px #0FAFFF, #4aa6d4 0px 0px 34px 1px; color: #161616 !important",
     },
     //
     // Miscellaneous Settings
