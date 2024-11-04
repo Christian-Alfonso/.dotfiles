@@ -1,24 +1,28 @@
 {
     //
-    // Language Settings
+    // Language and Files Settings
     //
     "files.associations": {
         "*.py": "python"
+    },
+    "files.exclude": {
+        "**/.git": false
     },
     "[python]": {
         "editor.formatOnType": true,
         "editor.defaultFormatter": "ms-python.black-formatter",
     },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
     //
     // Window/View Settings
     //
     "zenMode.fullScreen": false,
-    "window.density.editorTabHeight": "compact",
-    "window.menuBarVisibility": "toggle",
-    // Prevent fat-fingering window close
-    "window.confirmBeforeClose": "keyboardOnly",
+    "window.confirmBeforeClose": "keyboardOnly", // Prevent fat-fingering window close
     "workbench.iconTheme": "vscode-icons",
     "workbench.activityBar.location": "top",
+    "workbench.tree.enableStickyScroll": false,
     //
     // Editor Settings
     //
@@ -27,6 +31,9 @@
     "editor.fontFamily": "DroidSansM Nerd Font, Consolas, 'Courier New', monospace",
     "editor.renderWhitespace": "trailing",
     "editor.stickyScroll.enabled": false,
+    "editor.autoClosingQuotes": "never",
+    "diffEditor.renderSideBySide": false,
+    "debug.allowBreakpointsEverywhere": true,
     //
     // Extensions Settings
     //
@@ -34,39 +41,44 @@
         "asvetliakov.vscode-neovim": 1
     },
     "git.autofetch": true,
-    "arduino.useArduinoCli": true,
     "powershell.startAutomatically": false,
     //
-    // APC Extension and Cosmetic Settings
+    // Window and Other Cosmetic Settings
     //
+    "workbench.colorTheme": "Dark Modern Darker",
     "window.customTitleBarVisibility": "never",
     "window.titleBarStyle": "custom",
+    "window.density.editorTabHeight": "compact",
     "workbench.sideBar.location": "right",
     "window.commandCenter": false,
     "editor.cursorBlinking": "smooth",
     "editor.cursorSmoothCaretAnimation": "explicit",
-    "apc.menubar.compact": true,
-    "apc.electron": {
-        "frame": false,
-        "titleBarStyle": "hiddenInset",
-        "trafficLightPosition": {
-            "x": 7,
-            "y": 5
-        },
-        "opacity": 0.9995
-    },
-    "apc.activityBar": {
-        // Keep "size" or "itemSize" at 1 to prevent the icons
-        // from going into the "..." submenu.
-        "itemSize": 1,
-    },
-    "apc.stylesheet": {
-        // Give the cursor a special look to it, glowing blue with rounded edges.
-        ".monaco-editor .cursors-layer.cursor-block-style .cursor": "transform: translateX(-1px); width: 9px !important; color: transparent; border-width: 1px; border-color: #ffffff8b; border-style: solid; border-radius: 2px; background: #ffffff4b",
-        ".monaco-editor .cursor": "background: linear-gradient(to bottom, #0FAFFF, #4aa6d4) !important; box-shadow: 0 0 42px 5px #0FAFFF, #4aa6d4 0px 0px 34px 1px; color: #161616 !important",
-    },
     //
-    // Miscellaneous Settings
+    // APC Extension Settings
+    // (Extension no longer works on latest version)
+    //
+    // "apc.menubar.compact": true,
+    // "apc.electron": {
+    //     "frame": false,
+    //     "titleBarStyle": "hiddenInset",
+    //     "trafficLightPosition": {
+    //         "x": 7,
+    //         "y": 5
+    //     },
+    //     "opacity": 0.3
+    // },
+    // "apc.activityBar": {
+    //     // Keep "size" or "itemSize" at 1 to prevent the icons
+    //     // from going into the "..." submenu.
+    //     "itemSize": 1,
+    // },
+    // "apc.stylesheet": {
+    //     // Give the cursor a special look to it, glowing blue with rounded edges
+    //     ".monaco-editor .cursors-layer.cursor-block-style .cursor": "transform: translateX(-1px); width: 9px !important; color: transparent; border-width: 1px; border-color: #ffffff8b; border-style: solid; border-radius: 2px; background: #ffffff4b",
+    //     ".monaco-editor .cursor": "background: linear-gradient(to bottom, #0FAFFF, #4aa6d4) !important; box-shadow: 0 0 42px 5px #0FAFFF, #4aa6d4 0px 0px 34px 1px; color: #161616 !important",
+    // },
+    //
+    // Terminal Settings
     //
     "terminal.integrated.profiles.windows": {
         // Remove all built-in profiles, so that most of them can be redefined
@@ -95,6 +107,15 @@
             ],
             "icon": "terminal-powershell"
         },
+        "Powershell 7 [Tmux]": {
+            "path": "${env:localappdata}\\Microsoft\\WindowsApps\\ubuntu.exe",
+            "args": [
+                "run",
+                "tmux new-session",
+                "pwsh.exe"
+            ],
+            "icon": "terminal-powershell"
+        },
         "Ubuntu (WSL) [Tmux]": {
             "path": "${env:localappdata}\\Microsoft\\WindowsApps\\ubuntu.exe",
             "args": [
@@ -104,7 +125,15 @@
             "icon": "terminal-ubuntu"
         },
     },
-    "terminal.integrated.defaultProfile.windows": "Powershell [Tmux]",
+    "terminal.integrated.defaultProfile.windows": "Powershell 7 [Tmux]",
+    "terminal.integrated.automationProfile.windows": {
+        "path": "pwsh.exe",
+        "icon": "terminal-powershell"
+    },
+    //
+    // Miscellaneous Settings
+    //
+    "update.mode": "manual",
     // Uncomment to make whitespace characters more visible -
     // unsure about how useful this really is
     //
