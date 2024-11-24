@@ -108,4 +108,4 @@ source $ZSH/oh-my-zsh.sh
 
 # Start oh-my-posh to get theme on top of ZSH
 # (expects theme to exist at the given filepath)
-eval "$(oh-my-posh init zsh --config ~/slimfat.omp.json)"
+eval "$(oh-my-posh init zsh --config ~/theme.omp.json)"

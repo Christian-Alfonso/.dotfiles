@@ -1,0 +1,1 @@
+oh-my-posh init pwsh --config "$env:USERPROFILE\theme.omp.json" | Invoke-Expression
