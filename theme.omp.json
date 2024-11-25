@@ -7,16 +7,16 @@
       "segments": [
         {
           "background": "#2f2f2f",
-          "foreground": "#00C7FC",
+          "foreground": "#03DED3",
           "style": "diamond",
-          "template": " {{ if .WSL }}WSL at {{ end }}{{.Icon}} ",
+          "template": " {{.Icon}} {{ if .WSL }}on WSL {{ end }}",
           "type": "os"
         },
         {
           "properties": {
             "cache_duration": "none"
           },
-          "template": "<#7a7a7a>\u007c</> {{ if ne .Env.POSH_SESSION_DEFAULT_USER .UserName }}<#77DD77>{{ .UserName }}</> <#7a7a7a>\uf1fa</> {{ end }}<#77DD77>{{ .HostName }}</><#7a7a7a> \u007c</>",
+          "template": "<#7a7a7a>\u007c</> {{ if ne .Env.POSH_SESSION_DEFAULT_USER .UserName }}<#03DED3>{{ .UserName }}</> <#7a7a7a>\uf1fa</> {{ end }}<#03DED3>{{ .HostName }}</><#7a7a7a> \u007c</>",
           "foreground": "#fafafa",
           "background": "#2f2f2f",
           "type": "session",
@@ -34,7 +34,7 @@
         },
         {
           "background": "#2f2f2f",
-          "foreground": "#ff6961",
+          "foreground": "#03DED3",
           "style": "diamond",
           "template": " \uf489 {{ .Name }} <#7a7a7a>\u007c</>",
           "type": "shell"
@@ -48,7 +48,7 @@
         },
         {
           "background": "#2f2f2f",
-          "foreground": "#be9ddf",
+          "foreground": "#03DED3",
           "style": "diamond",
           "template": " \ue266 {{ round .PhysicalPercentUsed .Precision }}% {{ (div ((sub .PhysicalTotalMemory .PhysicalFreeMemory)|float64) 1073741824.0) }}/{{ (div .PhysicalTotalMemory 1073741824.0) }}GB ",
           "type": "sysinfo"
@@ -85,30 +85,6 @@
           "template": "<#7a7a7a>\u007c</> \ue7a8 {{ .Full }} "
         },
         {
-          "properties": {
-            "cache_duration": "none",
-            "fetch_stash_count": true,
-            "fetch_status": true,
-            "fetch_upstream_icon": true
-          },
-          "template": "<#7a7a7a>\u007c</> {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}<#E84855> \uf044 {{ .Working.String }}</>{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}<#2FDA4E> \uf046 {{ .Staging.String }}</>{{ end }}{{ if gt .StashCount 0 }} \ueb4b {{ .StashCount }}{{ end }} ",
-          "foreground": "#fdfd96",
-          "background": "#2f2f2f",
-          "type": "git",
-          "style": "diamond",
-          "foreground_templates": [
-            "{{ if or (.Working.Changed) (.Staging.Changed) }}#fdfd96{{ end }}",
-            "{{ if gt .Ahead 0 }}#2EC4B6{{ end }}",
-            "{{ if gt .Behind 0 }}#8A4FFF{{ end }}"
-          ]
-        }
-      ],
-      "type": "prompt"
-    },
-    {
-      "alignment": "right",
-      "segments": [
-        {
           "background": "#03DED3",
           "background_templates": [
             "{{ if gt .Code 0 }}#E44141{{ end }}"
@@ -123,10 +99,31 @@
           "style": "diamond",
           "template": " {{ if gt .Code 0 }}\uf00d{{ else }}\uf00c{{ end }} ",
           "type": "status"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "foreground": "#D6DEEB",
+          "style": "plain",
+          "template": "\u256d\u2574",
+          "type": "text"
         },
         {
-          "background": "#575656",
-          "foreground": "#D6DEEB",
+          "foreground": "#16454d",
+          "properties": {
+            "time_format": "<#16454d>\ue641 15:04:05</> <#D6DEEB>|</> \uf073 Mon 1/2/06"
+          },
+          "style": "plain",
+          "template": "<#16454d>{{ .CurrentDate | date .Format }}</> <#D6DEEB>|</>",
+          "type": "time"
+        },
+        {
+          "foreground": "#16454d",
           "properties": {
             "style": "roundrock",
             "threshold": 0
@@ -143,31 +140,41 @@
       "newline": true,
       "segments": [
         {
-          "foreground": "#D6DEEB",
-          "style": "plain",
-          "template": "\u256d\u2500",
-          "type": "text"
-        },
-        {
-          "foreground": "#F2D3B6",
-          "properties": {
-            "time_format": "<#D6DEEB>\ue641 15:04:05</> <#D6DEEB>|</> \uf073 Mon 1/2/06"
-          },
-          "style": "plain",
-          "template": "{{ .CurrentDate | date .Format }} <#D6DEEB>|</>",
-          "type": "time"
-        },
-        {
-          "foreground": "#B6D6F2",
-          "leading_diamond": "<#ffd04b> \uf07b</>",
+          "foreground": "#d29226",
           "properties": {
             "cache_duration": "none",
             "folder_icon": "<#B5B2C2>\ue5fe</>",
             "style": "full"
           },
+          "leading_diamond": "\u251c\u2574<#ffd04b>\uf07b</>",
           "style": "diamond",
           "template": " {{ .Path }} ",
           "type": "path"
+        }
+      ],
+      "type": "prompt"
+    },
+    {
+      "alignment": "left",
+      "newline": true,
+      "segments": [
+        {
+          "properties": {
+            "cache_duration": "none",
+            "fetch_stash_count": true,
+            "fetch_status": true,
+            "fetch_upstream_icon": true
+          },
+          "leading_diamond": "\u251c\u2574",
+          "template": "{{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}<#E84855> \uf044 {{ .Working.String }}</>{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}<#2FDA4E> \uf046 {{ .Staging.String }}</>{{ end }}{{ if gt .StashCount 0 }} \ueb4b {{ .StashCount }}{{ end }} ",
+          "foreground": "#f9dd33",
+          "type": "git",
+          "style": "diamond",
+          "foreground_templates": [
+            "{{ if or (.Working.Changed) (.Staging.Changed) }}#f9dd33{{ end }}",
+            "{{ if gt .Ahead 0 }}#2EC4B6{{ end }}",
+            "{{ if gt .Behind 0 }}#8A4FFF{{ end }}"
+          ]
         }
       ],
       "type": "prompt"
