@@ -106,6 +106,16 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# Ctrl+Backspace should erase an entire word
+bindkey "^H" backward-kill-word
+
+# Autosuggestions should not work over pasted text,
+# otherwise right arrow key does not navigate to the
+# end of the pasted text, but instead accepts the
+# autosuggestion and appends unwanted extra characters
+# from the autosuggestion to the end of the pasted text
+ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
+
 # Start oh-my-posh to get theme on top of ZSH
 # (expects theme to exist at the given filepath)
 eval "$(oh-my-posh init zsh --config ~/theme.omp.json)"
