@@ -288,5 +288,27 @@
         "key": "ctrl+k ctrl+o",
         "command": "workbench.action.files.openFolder",
         "when": "!editorFocus && openFolderWorkspaceSupport"
+    },
+    // Use "Shift+<Arrow>" for window resizing, since <C-w><Plus/Minus/Angle Bracket>
+    // takes much longer to easily repeat in VSCode
+    {
+        "key": "shift+up",
+        "command": "workbench.action.increaseViewHeight",
+        "when": "neovim.mode == 'normal'"
+    },
+    {
+        "key": "shift+down",
+        "command": "workbench.action.decreaseViewHeight",
+        "when": "neovim.mode == 'normal'"
+    },
+    {
+        "key": "shift+right",
+        "command": "workbench.action.increaseViewWidth",
+        "when": "neovim.mode == 'normal'"
+    },
+    {
+        "key": "shift+left",
+        "command": "workbench.action.decreaseViewWidth",
+        "when": "neovim.mode == 'normal'"
     }
 ]
