@@ -73,6 +73,10 @@ ZSH_THEME="robbyrussell"
 plugins=(
     git
     zsh-autosuggestions
+    dirhistory
+    copybuffer
+    copyfile
+    copypath
 )
 
 source $ZSH/oh-my-zsh.sh
