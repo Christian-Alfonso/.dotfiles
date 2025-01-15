@@ -40,11 +40,11 @@
           "type": "root"
         },
         {
-          "foreground": "#E8EAEE",
-          "background": "transparent",
           "type": "cmake",
           "style": "diamond",
-          "template": " \ue61e \ue61d cmake {{ .Full }} "
+          "foreground": "#003360",
+          "background": "transparent",
+          "template": " <#E8EAEE>\u00B7</> \ue61e \ue61d cmake {{ .Full }} "
         },
         {
           "type": "python",
@@ -52,23 +52,23 @@
           "properties": {
             "display_mode": "context"
           },
-          "foreground": "#011627",
-          "background": "#2f2f2f",
-          "template": " \ue73c {{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }} "
+          "foreground": "#FFE873",
+          "background": "transparent",
+          "template": " <#E8EAEE>\u00B7</> \ue73c {{ if .Venv }}(venv) {{ .Venv }} {{ end }}{{ .Full }} "
         },
         {
           "type": "go",
           "style": "diamond",
           "foreground": "#65cfdc",
-          "background": "#2f2f2f",
-          "template": " \u202d\ue626 {{ .Full }} "
+          "background": "transparent",
+          "template": " <#E8EAEE>\u00B7</> \u202d\ue626 {{ .Full }} "
         },
         {
           "type": "rust",
           "style": "diamond",
           "foreground": "#ff964f",
-          "background": "#2f2f2f",
-          "template": " \ue7a8 {{ .Full }} "
+          "background": "transparent",
+          "template": " <#E8EAEE>\u00B7</> \ue7a8 {{ .Full }} "
         },
         {
           "foreground": "#03DED3",
