@@ -310,5 +310,16 @@
         "key": "shift+left",
         "command": "workbench.action.decreaseViewWidth",
         "when": "neovim.mode == 'normal'"
+    },
+    // Use "Ctrl+Shift+r" to quickly restart the Neovim extension when it hangs
+    {
+        "key": "ctrl+shift+r",
+        "command": "vscode-neovim.restart",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+shift+r",
+        "command": "-editor.action.refactor",
+        "when": "editorHasCodeActionsProvider && textInputFocus && !editorReadonly"
     }
 ]
