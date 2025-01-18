@@ -114,7 +114,7 @@
                 "hidden": false,
                 "name": "Ubuntu",
                 "source": "CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc",
-                "startingDirectory": "\\\\wsl.localhost\\Ubuntu\\home\\chris"
+                "startingDirectory": "\\\\wsl.localhost\\Ubuntu\\home\\%USERNAME%"
             },
             {
                 "commandline": "ubuntu.exe run \"tmux new-session \"cmd.exe /k call C:/msys64/msys2_shell.cmd -defterm -here -no-start -msys\"\"",
