@@ -35,10 +35,6 @@
             "keys": "ctrl+pgup"
         },
         {
-            "command": "unbound",
-            "keys": "ctrl+shift+a"
-        },
-        {
             "command": 
             {
                 "action": "switchToTab",
@@ -46,6 +42,10 @@
             },
             "id": "User.switchToTab.D3F0B923",
             "keys": "ctrl+home"
+        },
+        {
+            "command": "unbound",
+            "keys": "ctrl+shift+a"
         },
         {
             "command": 
@@ -74,16 +74,16 @@
         "defaults": 
         {
             "adjustIndistinguishableColors": "always",
+            "backgroundImage": "desktopWallpaper",
+            "backgroundImageOpacity": 0.05,
+            "backgroundImageStretchMode": "uniformToFill",
             "colorScheme": "VS Code",
-            "cursorShape": "bar",
             "font": 
             {
                 "face": "DroidSansM Nerd Font",
-                "size": 10,
-                "weight": "normal"
+                "size": 10
             },
             "opacity": 80,
-            "suppressApplicationTitle": true,
             "useAcrylic": true
         },
         "list": 
