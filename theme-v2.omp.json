@@ -117,7 +117,7 @@
             "fetch_upstream_icon": true,
             "branch_icon": "\uE0A0 ",
             "commit_icon": "\uF417 ",
-            "tag_icon": "\uF412 ",
+            "tag_icon": "\uF412  ",
             "rebase_icon": "\uE728 ",
             "cherry_pick_icon": "\uE29B  ",
             "revert_icon": "\uF0E2  ",
