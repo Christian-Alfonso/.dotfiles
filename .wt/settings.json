@@ -37,6 +37,24 @@
         {
             "command": 
             {
+                "action": "moveTab",
+                "direction": "backward"
+            },
+            "id": "User.moveTabBackward.0",
+            "keys": "ctrl+shift+pgup"
+        },
+        {
+            "command": 
+            {
+                "action": "moveTab",
+                "direction": "forward"
+            },
+            "id": "User.moveTabForward.0",
+            "keys": "ctrl+shift+pgdn"
+        },
+        {
+            "command": 
+            {
                 "action": "switchToTab",
                 "index": 0
             },
@@ -78,6 +96,7 @@
             "backgroundImageOpacity": 0.05,
             "backgroundImageStretchMode": "uniformToFill",
             "colorScheme": "VS Code",
+            "cursorShape": "bar",
             "font": 
             {
                 "face": "DroidSansM Nerd Font",
