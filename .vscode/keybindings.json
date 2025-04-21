@@ -28,17 +28,22 @@
         "key": "ctrl+l",
         "command": "workbench.action.nextEditor"
     },
-    // Hack scroll up/down behavior to focus window on cursor afterwards
+    // Hack scroll up/down behavior to focus window on cursor afterwards, do not use default
+    // up/down because it will leave visual mode early, even if using VSCode API calls to
+    // scroll the editor window:
+    // https://github.com/vscode-neovim/vscode-neovim/issues/2434
+    //
+    // Since <C-d>/<C-u>/<C-b>/<C-f> are basically half/full-page multiline motions, just
+    // fake them as macros by using number repeated motions in the corresponding direction
     {
         "key": "ctrl+u",
         "command": "runCommands",
         "when": "editorTextFocus && neovim.ctrlKeysNormal.u && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'",
         "args": {
             "commands": [
-                "vscode-neovim.ctrl-u",
                 {
                     "command": "vscode-neovim.send",
-                    "args": "M"
+                    "args": "<C-u>zz"
                 }
             ]
         }
@@ -51,13 +56,12 @@
     {
         "key": "ctrl+d",
         "command": "runCommands",
-        "when": "editorTextFocus && neovim.ctrlKeysNormal.u && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'",
+        "when": "editorTextFocus && neovim.ctrlKeysNormal.d && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'",
         "args": {
             "commands": [
-                "vscode-neovim.ctrl-d",
                 {
                     "command": "vscode-neovim.send",
-                    "args": "M"
+                    "args": "<C-d>zz"
                 }
             ]
         }
@@ -73,10 +77,9 @@
         "when": "editorTextFocus && neovim.ctrlKeysNormal.b && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'",
         "args": {
             "commands": [
-                "vscode-neovim.ctrl-b",
                 {
                     "command": "vscode-neovim.send",
-                    "args": "M"
+                    "args": "<C-b>zz"
                 }
             ]
         }
@@ -92,10 +95,9 @@
         "when": "editorTextFocus && neovim.ctrlKeysNormal.f && neovim.init && neovim.mode != 'insert' && editorLangId not in 'neovim.editorLangIdExclusions'",
         "args": {
             "commands": [
-                "vscode-neovim.ctrl-f",
                 {
                     "command": "vscode-neovim.send",
-                    "args": "M"
+                    "args": "<C-f>zz"
                 }
             ]
         }
@@ -115,7 +117,11 @@
         "args": {
             "commands": [
                 "workbench.action.navigateForward",
-                "cancelSelection"
+                "cancelSelection",
+                {
+                    "command": "vscode-neovim.send",
+                    "args": "zz"
+                }
             ]
         }
     },
@@ -131,7 +137,11 @@
         "args": {
             "commands": [
                 "workbench.action.navigateBack",
-                "cancelSelection"
+                "cancelSelection",
+                {
+                    "command": "vscode-neovim.send",
+                    "args": "zz"
+                }
             ]
         }
     },
