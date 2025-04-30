@@ -108,27 +108,27 @@
         "list": 
         [
             {
-                "commandline": "ubuntu.exe run \"tmux new-session \"pwsh.exe\"\"",
+                "commandline": "wsl.exe -e bash -c \"tmux new-session pwsh.exe\"",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
                 "hidden": false,
                 "icon": "C:\\Program Files\\PowerShell\\7-preview\\assets\\Powershell_av_colors.ico",
                 "name": "PowerShell 7"
             },
             {
-                "commandline": "ubuntu.exe run \"tmux new-session \"cmd.exe\"\"",
+                "commandline": "wsl.exe -e bash -c \"tmux new-session cmd.exe\"",
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
                 "name": "Command Prompt"
             },
             {
-                "commandline": "ubuntu.exe run \"tmux new-session \"powershell.exe\"\"",
+                "commandline": "wsl.exe -e bash -c \"tmux new-session powershell.exe\"",
                 "guid": "{633aa648-f6e5-55ed-8064-9a22d76d56d2}",
                 "hidden": false,
                 "icon": "C:\\Program Files\\PowerShell\\7-preview\\assets\\Powershell_black.ico",
                 "name": "PowerShell"
             },
             {
-                "commandline": "ubuntu.exe run \"tmux new-session\"",
+                "commandline": "wsl.exe -e bash -c \"tmux new-session\"",
                 "guid": "{51855cb2-8cce-5362-8f54-464b92b32386}",
                 "hidden": false,
                 "name": "Ubuntu",
@@ -136,7 +136,7 @@
                 "startingDirectory": "\\\\wsl.localhost\\Ubuntu\\home\\%USERNAME%"
             },
             {
-                "commandline": "ubuntu.exe run \"tmux new-session \"cmd.exe /k call C:/msys64/msys2_shell.cmd -defterm -here -no-start -msys\"\"",
+                "commandline": "wsl.exe -e bash -c \"tmux new-session cmd.exe /k call C:/msys64/msys2_shell.cmd -defterm -here -no-start -msys\"",
                 "guid": "{29e4e016-6428-4505-8901-554c612e61fb}",
                 "hidden": false,
                 "icon": "C:\\msys64\\msys2.ico",
