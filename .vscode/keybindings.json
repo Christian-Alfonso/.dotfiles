@@ -117,11 +117,7 @@
         "args": {
             "commands": [
                 "workbench.action.navigateForward",
-                "cancelSelection",
-                {
-                    "command": "vscode-neovim.send",
-                    "args": "zz"
-                }
+                "cancelSelection"
             ]
         }
     },
@@ -137,11 +133,7 @@
         "args": {
             "commands": [
                 "workbench.action.navigateBack",
-                "cancelSelection",
-                {
-                    "command": "vscode-neovim.send",
-                    "args": "zz"
-                }
+                "cancelSelection"
             ]
         }
     },
