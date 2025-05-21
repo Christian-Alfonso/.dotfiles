@@ -27,6 +27,7 @@
     //
     "zenMode.fullScreen": false,
     "window.confirmBeforeClose": "keyboardOnly", // Prevent fat-fingering window close
+    "window.restoreWindows": "none",
     "workbench.iconTheme": "vscode-icons",
     "workbench.activityBar.location": "top",
     "workbench.tree.enableStickyScroll": false,
