@@ -41,8 +41,8 @@
         {
             "command": 
             {
-                "action": "moveTab",
-                "direction": "backward"
+                "action": "switchToTab",
+                "index": 0
             },
             "id": "User.moveTabBackward.0"
         },

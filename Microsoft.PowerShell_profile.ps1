@@ -1,6 +1,3 @@
-# Environment variables
-$env:PSREADLINE_VTINPUT=1
-
 # This should already be bound by default, but just in case
 Set-PSReadLineKeyHandler -Chord 'Ctrl+Backspace' -Function BackwardKillWord
 
