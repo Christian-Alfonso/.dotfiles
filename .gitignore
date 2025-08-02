@@ -1,1 +1,2 @@
-.powertoys/
+# Ignore any binaries downloaded by the setup scripts
+nvim-linux-x86_64.tar.gz

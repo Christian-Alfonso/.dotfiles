@@ -16,6 +16,9 @@ sudo apt install zsh
 # Install Oh My ZSH from their install script
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
+# Install additional ZSH plugins
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
 # Copy over ZSH configuration
 cp -a .zsh/. ~
 
@@ -26,7 +29,7 @@ chsh -s /bin/zsh
 sudo apt install tmux
 
 # Copy over Tmux configuration
-cp .tmux.conf ~
+cp .tmux.conf ~/.tmux.conf
 
 #
 # Configure Neovim
@@ -39,5 +42,14 @@ sudo rm -rf /opt/nvim
 sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
 
 # Copy over Neovim configuration
+mkdir ~/.config
 mkdir ~/.config/nvim
 cp -a .nvim/. ~/.config/nvim
+
+# Install Oh-My-Posh from their example:
+# https://ohmyposh.dev/docs/installation/linux#installation
+sudo apt install unzip
+curl -s https://ohmyposh.dev/install.sh | bash -s
+
+# Copy over Oh-My-Posh configuration
+cp theme-v2.omp.json ~/theme-v2.omp.json
