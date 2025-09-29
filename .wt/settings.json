@@ -5,8 +5,7 @@
     [
         {
             "command": "find",
-            "id": "User.find",
-            "keys": "ctrl+shift+f"
+            "id": "User.find"
         },
         {
             "command": 
@@ -15,55 +14,7 @@
                 "split": "auto",
                 "splitMode": "duplicate"
             },
-            "id": "User.splitPane.A6751878",
-            "keys": "alt+shift+d"
-        },
-        {
-            "command": 
-            {
-                "action": "nextTab"
-            },
-            "id": "User.nextTab.0",
-            "keys": "ctrl+pgdn"
-        },
-        {
-            "command": 
-            {
-                "action": "prevTab"
-            },
-            "id": "User.prevTab.0",
-            "keys": "ctrl+pgup"
-        },
-        {
-            "command": 
-            {
-                "action": "moveTab",
-                "direction": "backward"
-            },
-            "id": "User.moveTabBackward.0",
-            "keys": "ctrl+shift+pgup"
-        },
-        {
-            "command": 
-            {
-                "action": "moveTab",
-                "direction": "forward"
-            },
-            "id": "User.moveTabForward.0",
-            "keys": "ctrl+shift+pgdn"
-        },
-        {
-            "command": 
-            {
-                "action": "switchToTab",
-                "index": 0
-            },
-            "id": "User.switchToTab.D3F0B923",
-            "keys": "ctrl+home"
-        },
-        {
-            "command": "unbound",
-            "keys": "ctrl+shift+a"
+            "id": "User.splitPane.A6751878"
         },
         {
             "command": 
@@ -71,8 +22,45 @@
                 "action": "switchToTab",
                 "index": 999
             },
-            "id": "User.switchToTab.7D60DC69",
-            "keys": "ctrl+end"
+            "id": "User.switchToTab.7D60DC69"
+        },
+        {
+            "command": 
+            {
+                "action": "nextTab"
+            },
+            "id": "User.nextTab.0"
+        },
+        {
+            "command": 
+            {
+                "action": "prevTab"
+            },
+            "id": "User.prevTab.0"
+        },
+        {
+            "command": 
+            {
+                "action": "moveTab",
+                "direction": "backward"
+            },
+            "id": "User.moveTabBackward.0"
+        },
+        {
+            "command": 
+            {
+                "action": "moveTab",
+                "direction": "forward"
+            },
+            "id": "User.moveTabForward.0"
+        },
+        {
+            "command": 
+            {
+                "action": "switchToTab",
+                "index": 0
+            },
+            "id": "User.switchToTab.D3F0B923"
         }
     ],
     "alwaysShowTabs": true,
@@ -80,9 +68,56 @@
     "copyOnSelect": false,
     "defaultProfile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
     "initialPosition": ",",
-    "launchMode": "default",
+    "keybindings": 
+    [
+        {
+            "id": "User.switchToTab.D3F0B923",
+            "keys": "ctrl+home"
+        },
+        {
+            "id": "User.find",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "id": "User.splitPane.A6751878",
+            "keys": "alt+shift+d"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+shift+pgdn"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+shift+pgup"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+pgdn"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+pgup"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+shift+a"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+shift+1"
+        },
+        {
+            "id": "User.switchToTab.7D60DC69",
+            "keys": "ctrl+end"
+        }
+    ],
+    "launchMode": "focus",
     "newTabMenu": 
     [
+        {
+            "type": "profile",
+            "profile": "Tmux Initialization"
+        },
         {
             "type": "remainingProfiles"
         }
@@ -108,40 +143,15 @@
         "list": 
         [
             {
-                "commandline": "wsl.exe -e bash -c \"tmux new-session pwsh.exe\"",
+                "commandline": "wsl.exe -e bash -c \"tmux new -As0 pwsh.exe\"",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
                 "hidden": false,
-                "icon": "C:\\Program Files\\PowerShell\\7-preview\\assets\\Powershell_av_colors.ico",
                 "name": "PowerShell 7"
             },
             {
-                "commandline": "wsl.exe -e bash -c \"tmux new-session cmd.exe\"",
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
-                "name": "Command Prompt"
-            },
-            {
-                "commandline": "wsl.exe -e bash -c \"tmux new-session powershell.exe\"",
-                "guid": "{633aa648-f6e5-55ed-8064-9a22d76d56d2}",
-                "hidden": false,
-                "icon": "C:\\Program Files\\PowerShell\\7-preview\\assets\\Powershell_black.ico",
-                "name": "PowerShell"
-            },
-            {
-                "commandline": "wsl.exe -e bash -c \"tmux new-session\"",
-                "guid": "{51855cb2-8cce-5362-8f54-464b92b32386}",
-                "hidden": false,
-                "name": "Ubuntu",
-                "source": "CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc",
-                "startingDirectory": "\\\\wsl.localhost\\Ubuntu\\home\\%USERNAME%"
-            },
-            {
-                "commandline": "wsl.exe -e bash -c \"tmux new-session cmd.exe /k call C:/msys64/msys2_shell.cmd -defterm -here -no-start -msys\"",
-                "guid": "{29e4e016-6428-4505-8901-554c612e61fb}",
-                "hidden": false,
-                "icon": "C:\\msys64\\msys2.ico",
-                "name": "MSYS / MSYS2",
-                "startingDirectory": "C:/msys64/home/%USERNAME%"
+                "name": "Tmux Initialization"
             }
         ]
     },

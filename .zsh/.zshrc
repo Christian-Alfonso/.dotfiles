@@ -122,4 +122,4 @@ ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
 
 # Start oh-my-posh to get theme on top of ZSH
 # (expects theme to exist at the given filepath)
-eval "$(oh-my-posh init zsh --config ~/theme.omp.json)"
+eval "$(oh-my-posh init zsh --config ~/theme-v2.omp.json)"
