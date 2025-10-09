@@ -57,7 +57,7 @@ Configuration files for Windows Terminal.
 | ------------------ | ----------------------------------- |
 | Folder/File        | [.tmux.conf](.tmux.conf)            |
 | Location (Windows) | -                                   |
-| Location (Linux)   | "$HOME/.tmux.conf"                  |
+| Location (Linux)   | `"$HOME/.tmux.conf"`                |
 | Documentation      | <https://github.com/tmux/tmux/wiki> |
 
 Configuration files for Tmux.

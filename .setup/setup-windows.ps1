@@ -77,6 +77,10 @@ Copy-Item -Path "$PSScriptRoot\..\.vscode\keybindings.json" -Destination "$env:A
 $NeovimCopyConfig = Convert-Path "$PSScriptRoot\..\.nvim\CopyConfiguration.ps1"
 & $NeovimCopyConfig
 
+# Also install Neovim dependencies using its own script
+$NeovimInstallDepConfig = Convert-Path "$PSScriptRoot\..\.nvim\InstallDependencies.ps1"
+& $NeovimInstallDepConfig
+
 #
 # Configure WSL
 #
