@@ -85,6 +85,8 @@ $NeovimInstallDepConfig = Convert-Path "$PSScriptRoot\..\.nvim\InstallDependenci
 # Configure WSL
 #
 
+Write-Host "Configuring WSL, you will likely be prompted more than once for root password..."
+
 $SetupWSLScriptPath = wsl.exe wslpath -a -u "$PSScriptRoot\setup-wsl.sh".Replace("\", "\\")
 wsl.exe -e bash -c "chmod +x $SetupWSLScriptPath; $SetupWSLScriptPath"
 
