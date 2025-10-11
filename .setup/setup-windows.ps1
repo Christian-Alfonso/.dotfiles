@@ -41,6 +41,12 @@ else {
     winget install --id Git.Git --source winget
 }
 
+# Configure Git for Windows to use the following settings. Need to do the same
+# in the WSL setup script, there is no easy way to merge Git settings into the
+# existing config file with username/email, aside from using the commands.
+
+& $PSScriptRoot\setup-git.ps1
+
 #
 # Configure Windows Terminal (WT)
 #

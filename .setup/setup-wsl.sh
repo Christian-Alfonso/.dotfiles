@@ -7,6 +7,15 @@ cd $(wslpath -a "")
 sudo apt update
 
 #
+# Configure Git
+#
+
+# Even though this is a PowerShell script, it does NOT
+# require PowerShell to be installed; see the file itself
+# for the workaround being used here
+sh .setup/setup-git.ps1
+
+#
 # Configure shell
 #
 
