@@ -95,15 +95,3 @@ Write-Host "Configuring WSL, you will likely be prompted more than once for root
 
 $SetupWSLScriptPath = wsl.exe wslpath -a -u "$PSScriptRoot\setup-wsl.sh".Replace("\", "\\")
 wsl.exe -e bash -c "chmod +x $SetupWSLScriptPath; $SetupWSLScriptPath"
-
-#
-# Manual Configurations
-#
-
-Write-Host @"
-
-The following applications require manual configuration that cannot be done from scripts:
-    - PowerToys: Use the `"backup-powertoys.ps1`" script with the `"-Restore`" parameter
-    to package and copy the config files, and then use the `"Restore`" button in PowerToys
-    to force it to restore the configuration.
-"@
