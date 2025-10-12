@@ -1,0 +1,7 @@
+*.sh text eol=lf
+tmux.conf text eol=lf
+.zshrc text eol=lf
+.zprofile text eol=lf
+
+*.ps1 text eol=crlf
+setup-git.ps1 text eol=lf
