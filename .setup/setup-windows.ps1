@@ -57,8 +57,22 @@ else {
 $OhMyPoshConfig = Convert-Path "$PSScriptRoot\..\theme-v2.omp.json"
 Copy-Item -Path $OhMyPoshConfig -Destination "$env:USERPROFILE\theme-v2.omp.json" 
 
+# Oh-My-Posh apparently installs to one of two paths, figure out which one
+# it is before calling it to install the font
+$OhMyPoshPathOne = "$env:LOCALAPPDATA\Programs\oh-my-posh\bin\oh-my-posh.exe"
+$OhMyPoshPathTwo = "$env:LOCALAPPDATA\Microsoft\WindowsApps"
+
+if (Test-Path $OhMyPoshPathOne) {
+    $OhMyPosh = $OhMyPoshPathOne
+}
+elseif (Test-Path $OhMyPoshPathTwo) {
+    $OhMyPosh = $OhMyPoshPathTwo
+}
+else {
+    throw "Could not find Oh-My-Posh after installation, where did it install?"
+}
+
 # Install the DroidSansM Nerd Font families
-$OhMyPosh = "$env:LOCALAPPDATA\Programs\oh-my-posh\bin\oh-my-posh.exe"
 & $OhMyPosh font install droidsansmono
 
 # Copy over the PowerShell 7 profile to $PROFILE so that it runs
