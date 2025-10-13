@@ -60,7 +60,7 @@ Copy-Item -Path $OhMyPoshConfig -Destination "$env:USERPROFILE\theme-v2.omp.json
 # Oh-My-Posh apparently installs to one of two paths, figure out which one
 # it is before calling it to install the font
 $OhMyPoshPathOne = "$env:LOCALAPPDATA\Programs\oh-my-posh\bin\oh-my-posh.exe"
-$OhMyPoshPathTwo = "$env:LOCALAPPDATA\Microsoft\WindowsApps"
+$OhMyPoshPathTwo = "$env:LOCALAPPDATA\Microsoft\WindowsApps\oh-my-posh.exe"
 
 if (Test-Path $OhMyPoshPathOne) {
     $OhMyPosh = $OhMyPoshPathOne
