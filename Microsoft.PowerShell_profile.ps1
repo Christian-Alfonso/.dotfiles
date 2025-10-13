@@ -1,3 +1,5 @@
+# ----- Added by setup script ----- #
+
 # This should already be bound by default, but just in case
 Set-PSReadLineKeyHandler -Chord 'Ctrl+Backspace' -Function BackwardKillWord
 
@@ -5,3 +7,5 @@ Set-PSReadLineKeyHandler -Chord 'Ctrl+Backspace' -Function BackwardKillWord
 [Console]::OutputEncoding = [Text.Encoding]::UTF8
 
 oh-my-posh init pwsh --config "$env:USERPROFILE\theme-v2.omp.json" | Invoke-Expression
+
+# --------------------------------- #

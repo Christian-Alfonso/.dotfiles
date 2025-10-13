@@ -77,8 +77,26 @@ else {
 
 # Copy over the PowerShell 7 profile to $PROFILE so that it runs
 # every time that the prompt opens
-$ProfilePath = Convert-Path "$PSScriptRoot\..\Microsoft.PowerShell_profile.ps1"
-Copy-Item -Path $ProfilePath -Destination $PROFILE
+#
+# Rather than copying the file and overwriting the existing profile,
+# we will append to the end of this existing profile so that PowerShell
+# will not complain about the digital signature not being valid
+
+$ProfileConfigPath = Convert-Path "$PSScriptRoot\..\Microsoft.PowerShell_profile.ps1"
+$ProfileConfig = Get-Content $ProfileConfigPath
+
+# Get the existing profile contents to see if the config is already in there
+$ExistingProfileConfig = Get-Content $PROFILE
+
+$PSConfigExists = $ExistingProfileConfig | ForEach-Object { $ProfileConfig -contains $_ }
+
+if ($PSConfigExists) {
+    Write-Warning "PowerShell profile config seems to already be present, skipping write"
+}
+else {
+    Add-Content $PROFILE ""
+    Add-Content $PROFILE $ProfileConfig
+}
 
 # Install editors
 winget install --id Microsoft.VisualStudioCode --source winget
@@ -109,3 +127,10 @@ Write-Host "Configuring WSL, you will likely be prompted more than once for root
 
 $SetupWSLScriptPath = wsl.exe wslpath -a -u "$PSScriptRoot\setup-wsl.sh".Replace("\", "\\")
 wsl.exe -e bash -c "chmod +x $SetupWSLScriptPath; $SetupWSLScriptPath"
+
+if ($LASTEXITCODE -ne 0) {
+    throw "WSL configuration failed!"
+}
+else {
+    Write-Host "Configuration complete!"
+}

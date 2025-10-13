@@ -19,6 +19,10 @@ sh .setup/setup-git.ps1
 # Configure shell
 #
 
+YELLOW='\033[0;33m'
+NC='\033[0m' # No Color
+echo -e "${YELLOW}TYPE EXIT AT ZSH PROMPT TO CONTINUE SETUP${NC}"
+
 # Install ZSH
 sudo apt install zsh
 
