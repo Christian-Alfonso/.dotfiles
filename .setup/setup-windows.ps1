@@ -59,6 +59,10 @@ if (!(Test-Path "$PSScriptRoot\..\.nvim\*")) {
     }
 
     & $Git submodule update --init --recursive
+
+    if ($LASTEXITCODE -ne 0) {
+        throw "Git submodule pull failed!"
+    }
 }
 
 #
