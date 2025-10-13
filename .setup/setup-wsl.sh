@@ -60,6 +60,9 @@ mkdir ~/.config
 mkdir ~/.config/nvim
 cp -a .nvim/. ~/.config/nvim
 
+# Install Neovim dependencies
+sudo sh .nvim/install-dependencies.sh
+
 # Install Oh-My-Posh from their example:
 # https://ohmyposh.dev/docs/installation/linux#installation
 sudo apt install unzip
