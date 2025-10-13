@@ -34,18 +34,32 @@ $ErrorActionPreference = "Stop"
 Write-Host "Installing applications, this may take a while..."
 
 # Git needs to be installed before anything, since other programs rely on it
-if (!$NormalGit) {
-    winget install --id Microsoft.Git --source winget
+if ($NormalGit) {
+    winget install --id Git.Git --source winget
 }
 else {
-    winget install --id Git.Git --source winget
+    winget install --id Microsoft.Git --source winget
 }
 
 # Configure Git for Windows to use the following settings. Need to do the same
 # in the WSL setup script, there is no easy way to merge Git settings into the
 # existing config file with username/email, aside from using the commands.
-
 & $PSScriptRoot\setup-git.ps1
+
+# If the Neovim submodule does not exist, we will need to pull it using the
+# possibly brand new Git installation (as in, do not assume it is in the
+# PATH variable yet, find it directly)
+if (!(Test-Path "$PSScriptRoot\..\.nvim\*")) {
+    Write-Warning "Neovim submodule not checked out, trying to pull it using Git"
+
+    $Git = "$env:ProgramFiles\Git\cmd\git.exe"
+
+    if (!(Test-Path $Git)) {
+        throw "Could not find Git after installation, where did it install?"
+    }
+
+    & $Git submodule update --init --recursive
+}
 
 #
 # Configure Windows Terminal (WT)
@@ -107,9 +121,24 @@ Write-Host "Copying configurations over for each application..."
 # Replace configuration for WT
 Copy-Item -Path "$PSScriptRoot\..\.wt\settings.json" -Destination "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json"
 
+$VSCodeSettingsPath = "$env:APPDATA\Code\User\settings.json"
+$VSCodeKeybindingsPath = "$env:APPDATA\Code\User\keybindings.json"
+
+# If the VSCode settings or keybindings paths do not
+# exist yet, they probably need to be created
+if ((!(Test-Path $VSCodeSettingsPath)) -or (!(Test-Path $VSCodeKeybindingsPath))) {
+    Write-Warning "At least one of the VSCode config paths is missing, opening VSCode once to create them"
+
+    $VSCode = "$env:LOCALAPPDATA\Programs\Microsoft VS Code\bin\code.cmd"
+
+    # Open VSCode once initially to let it create those paths for us
+    # before copying over the configuration files
+    & $VSCode
+}
+
 # Replace configurations for VSCode
-Copy-Item -Path "$PSScriptRoot\..\.vscode\settings.json" -Destination "$env:APPDATA\Code\User\settings.json"
-Copy-Item -Path "$PSScriptRoot\..\.vscode\keybindings.json" -Destination "$env:APPDATA\Code\User\keybindings.json"
+Copy-Item -Path "$PSScriptRoot\..\.vscode\settings.json" -Destination $VSCodeSettingsPath
+Copy-Item -Path "$PSScriptRoot\..\.vscode\keybindings.json" -Destination $VSCodeKeybindingsPath
 
 # Copy over Neovim configuration to %LocalAppData%\nvim using its own script
 $NeovimCopyConfig = Convert-Path "$PSScriptRoot\..\.nvim\CopyConfiguration.ps1"
