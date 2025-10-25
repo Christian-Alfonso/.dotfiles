@@ -128,7 +128,7 @@
         {
             "adjustIndistinguishableColors": "always",
             "backgroundImage": "desktopWallpaper",
-            "backgroundImageOpacity": 0.05,
+            "backgroundImageOpacity": 0.006,
             "backgroundImageStretchMode": "uniformToFill",
             "colorScheme": "VS Code",
             "cursorShape": "bar",
@@ -137,8 +137,7 @@
                 "face": "DroidSansM Nerd Font",
                 "size": 10
             },
-            "opacity": 80,
-            "useAcrylic": true
+            "opacity": 100
         },
         "list": 
         [
