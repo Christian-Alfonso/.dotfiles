@@ -23,13 +23,29 @@
 #   https://learn.microsoft.com/en-us/windows/wsl/install
 
 #Requires -Version 7.0
+#Requires -RunAsAdministrator
 
 [CmdletBinding()]
 param(
-    [switch] $NormalGit
+    # Download the normal version of Git for Windows
+    # instead of the Microsoft fork that has support
+    # for other features like VFS for Git (GVFS).
+    [switch] $NormalGit,
+
+    # Do not prompt for font installation, either
+    # because fonts are already installed or user
+    # intends to install separately. Using these
+    # configurations without installation of the
+    # intended fonts is not recommended, and can
+    # lead to issues.
+    [switch] $NoFontInstall
 )
 
 $ErrorActionPreference = "Stop"
+
+#
+# Initial Setup
+#
 
 Write-Host "Installing applications, this may take a while..."
 
@@ -89,9 +105,6 @@ elseif (Test-Path $OhMyPoshPathTwo) {
 else {
     throw "Could not find Oh-My-Posh after installation, where did it install?"
 }
-
-# Install the DroidSansM Nerd Font families
-& $OhMyPosh font install droidsansmono
 
 # Copy over the PowerShell 7 profile to $PROFILE so that it runs
 # every time that the prompt opens
@@ -164,6 +177,122 @@ wsl.exe -e bash -c "chmod +x $SetupWSLScriptPath; $SetupWSLScriptPath"
 if ($LASTEXITCODE -ne 0) {
     throw "WSL configuration failed!"
 }
-else {
-    Write-Host "Configuration complete!"
+
+#
+# Manual Configurations/Installations
+#
+
+# At the moment, only manual installations need the temp folder
+$TempFolder = New-Item -ItemType Directory -Force -Path "$PSScriptRoot\..\.temp"
+
+# For now, just the one:
+# 1. Font installation
+#
+# (Keeping the option open to add more later, TBD)
+$ManualInstallsRequired = 1
+
+if ($NoFontInstall) {
+    $ManualInstallsRequired -= 1
+    Write-Warning "Skipping font installation"
 }
+
+if ($ManualInstallsRequired -gt 0) {
+    $ManualInstallInstructions = (
+        "The remaining configurations require basic manual input to complete:`n" +
+        $(if (!$NoFontInstall) {
+                " - Font installation (DroidSansMono Nerd Font)`n"
+            }) +
+        "`n" +
+        "These manual configurations are required for the configurations to work as expected."
+    )
+
+    Write-Warning $ManualInstallInstructions
+
+    $ManualInstallConfirmation = Read-Host "Would you like to continue with manual installations? (y/n)?"
+    if ($ManualInstallConfirmation -eq 'y' -or $ManualInstallConfirmation -eq 'yes') {
+        #
+        # Font Installation (DroidSansMono Nerd Font)
+        #
+
+        if (!$NoFontInstall) {
+            # Install the DroidSansM Nerd Font families
+            # using a direct download of the font and
+            # manual installation to the font folder
+            $NerdFontLink = "https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/DroidSansMono.zip"
+            $NerdFontFile = Split-Path $NerdFontLink -leaf
+
+            # Download the DroidSansM font family
+            Invoke-WebRequest $NerdFontLink -OutFile $NerdFontFile 
+
+            $NerdFontFileBaseName = (Get-Item $NerdFontFile).BaseName
+            $NerdFontExtractedFiles = New-Item -ItemType Directory -Force -Path "$TempFolder\NerdFont\$NerdFontFileBaseName"
+
+            # Create the .temp directory if it does not already exist
+            New-Item -ItemType Directory -Force -Path $NerdFontExtractedFiles
+
+            # Extract the *.otf files for the font from the ZIP file
+            # into the .temp directory folder
+            Expand-Archive -Force -Path $NerdFontFile -DestinationPath $NerdFontExtractedFiles 
+
+            $NerdFontNames = @(
+                "DroidSansMNerdFontMono-Regular.otf",
+                "DroidSansMNerdFontPropo-Regular.otf",
+                "DroidSansMNerdFont-Regular.otf"
+            )
+
+            $FontInstallInstructions = (
+                "To install the DroidSansMono Nerd Font that is used by many`n" +
+                "of these configuration files, you will need to manually install`n" +
+                "them from windows that will pop up. Click the `"Install`" button`n" +
+                "that will show up in the top left corner of the window for each one.`n" +
+                "`n" +
+                "There are 3 fonts in this font family that need to be installed:`n" +
+                "`n " +
+                ($NerdFontNames | ForEach-Object { "- $_`n" })
+            )
+
+            Write-Warning $FontInstallInstructions
+
+            $FontInstallConfirmation = Read-Host "Would you like to launch the font installation windows (y/n)?"
+            if ($FontInstallConfirmation -eq 'y' -or $FontInstallConfirmation -eq 'yes') {
+                Write-Host "Launching windows, please click `"Install`" on each..."
+
+                Start-Sleep -Seconds 2
+
+                foreach ($Name in $NerdFontNames) {
+                    # Expect user to install each of the fonts manually
+                    # from the windows that pop up here, but there is
+                    # no way to validate that they actually did
+                    & "$NerdFontExtractedFiles\$Name"
+
+                    # Open these slowly, there was some corruption of one
+                    # of the fonts that would happening occasionally where
+                    # the window would not open, but the other two would
+                    Start-Sleep -Seconds 1
+                }
+
+                Write-Host "Done. All font windows should have launched by now."
+            }
+            else {
+                Write-Host "Quitting font installation, use `"-NoFontInstall`" to run again without font installation"
+            }
+
+            Write-Host "`n"
+            Read-Host "Continue by pressing enter after installation..."
+
+            # Clean up by removing the downloaded file after extracting,
+            # the extracted files will be cleaned up at the end by the
+            # removal of the .temp folder
+            Remove-Item -Force $NerdFontFile
+        }
+    }
+    else {
+        Write-Warning "Skipping manual configurations"
+    }
+}
+
+# Clean up by removing all temporary files now that they are no longer needed
+# (always download new ones on next script execution so these are not stale)
+Remove-Item -Recurse -Force $TempFolder
+
+Write-Host "Configuration complete!"
