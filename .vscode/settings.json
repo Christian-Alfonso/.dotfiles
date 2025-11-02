@@ -9,7 +9,6 @@
         "**/.git": false
     },
     "[python]": {
-        "editor.formatOnType": true,
         "editor.defaultFormatter": "ms-python.black-formatter",
     },
     "[jsonc]": {
@@ -41,6 +40,7 @@
     "editor.stickyScroll.enabled": false,
     "editor.autoClosingQuotes": "never",
     "diffEditor.renderSideBySide": false,
+    "diffEditor.ignoreTrimWhitespace": false,
     "debug.allowBreakpointsEverywhere": true,
     //
     // Extensions Settings
@@ -50,6 +50,8 @@
     },
     "git.autofetch": true,
     "powershell.startAutomatically": false,
+    "gitlens.codeLens.authors.enabled": false,
+    "gitlens.codeLens.recentChange.enabled": false,
     //
     // Window and Other Cosmetic Settings
     //
