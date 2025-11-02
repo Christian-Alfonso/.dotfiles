@@ -145,12 +145,14 @@
                 "commandline": "wsl.exe -e bash -c \"tmux new -As0 pwsh.exe\"",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
                 "hidden": false,
-                "name": "PowerShell 7"
+                "name": "Tmux Initialization"
             },
             {
-                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "commandline": "pwsh.exe",
+                "guid": "{a3ed8a73-03b7-4e67-9082-bf69ac266d7c}",
                 "hidden": false,
-                "name": "Tmux Initialization"
+                "elevate": true,
+                "name": "PowerShell 7 (Admin)"
             }
         ]
     },
