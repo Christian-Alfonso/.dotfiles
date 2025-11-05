@@ -8,6 +8,8 @@
     "files.exclude": {
         "**/.git": false
     },
+    "files.trimTrailingWhitespace": false,
+    "files.trimTrailingWhitespaceInRegexAndStrings": false,
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
     },
@@ -39,6 +41,7 @@
     "editor.renderWhitespace": "trailing",
     "editor.stickyScroll.enabled": false,
     "editor.autoClosingQuotes": "never",
+    "editor.inlineSuggest.enabled": false,
     "diffEditor.renderSideBySide": false,
     "diffEditor.ignoreTrimWhitespace": false,
     "debug.allowBreakpointsEverywhere": true,
@@ -156,4 +159,11 @@
     // "workbench.colorCustomizations": {
     //     "editorWhitespace.foreground": "#FFFF00"
     // },
+    //
+    // Automatically Added Settings
+    //
+    // (Leave this section at the bottom
+    // to section off any additional settings
+    // that VSCode add automatically)
+    //
 }
