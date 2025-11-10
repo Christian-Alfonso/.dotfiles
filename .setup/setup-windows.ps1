@@ -130,7 +130,7 @@ else {
 }
 
 # Install editors, VSCode needs some additional options set through an override
-winget install --id Microsoft.VisualStudioCode --source winget --override "/SILENT /MERGETASKS=\"addcontextmenufiles,addcontextmenufolders,associatewithfiles,addtopath\""
+winget install --id Microsoft.VisualStudioCode --source winget --override '/SILENT /MERGETASKS="addcontextmenufiles,addcontextmenufolders,associatewithfiles,addtopath"'
 winget install --id Neovim.Neovim --source winget
 
 Write-Host "Copying configurations over for each application..."
