@@ -1,0 +1,38 @@
+##############################################################################################################
+# yaml-language-server: $schema=https://aka.ms/configuration-dsc-schema/0.2                                  #
+#                                                                                                            #
+# Original example taken and modified from:                                                                  #
+# https://aka.ms/dsc.yaml                                                                                    #
+#                                                                                                            #
+# Specifically:                                                                                              #
+# https://github.com/microsoft/winget-dsc/blob/main/samples/DscResources/PowerToysConfigure/PowerToys.winget #
+#                                                                                                            #
+##############################################################################################################
+#
+properties:
+  configurationVersion: 0.2.0
+  resources:
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      directives:
+        description: Install PowerToys
+      settings:
+        id: Microsoft.PowerToys
+        source: winget
+    - resource: PowerToysConfigure
+      directives:
+        description: Configure PowerToys
+      settings:
+        FancyZones:
+          Enabled: true
+          FancyzonesShiftDrag: true
+          FancyzonesOverrideSnapHotkeys: true
+          FancyzonesSnapToZoneOnMove: true
+          FancyzonesSnapToZoneOnMaximize: true
+          FancyzonesZoneSetChangeMoveWindows: true
+          FancyzonesDisplayChangeMoveWindows: true
+          FancyzonesRestoreSize: false
+          FancyzonesMoveWindowsAcrossMonitors: true
+          FancyzonesUseCursorPosEditorStart: true
+          FancyzonesShowOnAllMonitors: true
+          FancyzonesSpanZonesAcrossMonitors: false
+          FancyzonesWindowSwitching: true

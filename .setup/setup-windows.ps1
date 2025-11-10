@@ -89,7 +89,7 @@ if (!(Test-Path "$PSScriptRoot\..\.nvim\*")) {
 & winget install --id JanDeDobbeleer.OhMyPosh --source winget
 
 $OhMyPoshConfig = Convert-Path "$PSScriptRoot\..\theme-v2.omp.json"
-Copy-Item -Path $OhMyPoshConfig -Destination "$env:USERPROFILE\theme-v2.omp.json" 
+Copy-Item -Path $OhMyPoshConfig -Destination "$env:USERPROFILE\theme-v2.omp.json"
 
 # Oh-My-Posh apparently installs to one of two paths, figure out which one
 # it is before calling it to install the font
@@ -129,8 +129,8 @@ else {
     Add-Content $PROFILE $ProfileConfig
 }
 
-# Install editors
-winget install --id Microsoft.VisualStudioCode --source winget
+# Install editors, VSCode needs some additional options set through an override
+winget install --id Microsoft.VisualStudioCode --source winget --override "/SILENT /MERGETASKS=\"addcontextmenufiles,addcontextmenufolders,associatewithfiles,addtopath\""
 winget install --id Neovim.Neovim --source winget
 
 Write-Host "Copying configurations over for each application..."
@@ -164,6 +164,15 @@ $NeovimCopyConfig = Convert-Path "$PSScriptRoot\..\.nvim\CopyConfiguration.ps1"
 # Also install Neovim dependencies using its own script
 $NeovimInstallDepConfig = Convert-Path "$PSScriptRoot\..\.nvim\InstallDependencies.ps1"
 & $NeovimInstallDepConfig
+
+# Install PowerToys from configuration
+$PowerToysConfig = "$PSScriptRoot\..\.powertoys\powertoys.winget"
+winget configure $PowerToysConfig
+
+# Replace custom layouts for FancyZones in PowerToys
+$FancyZonesCustomLayoutsPath = "$env:LOCALAPPDATA\Microsoft\PowerToys\FancyZones"
+
+Copy-Item -Path "$PSScriptRoot\..\.powertoys\custom-layouts.json" -Destination $FancyZonesCustomLayoutsPath
 
 #
 # Configure WSL
@@ -222,7 +231,7 @@ if ($ManualInstallsRequired -gt 0) {
             $NerdFontFile = Split-Path $NerdFontLink -leaf
 
             # Download the DroidSansM font family
-            Invoke-WebRequest $NerdFontLink -OutFile $NerdFontFile 
+            Invoke-WebRequest $NerdFontLink -OutFile $NerdFontFile
 
             $NerdFontFileBaseName = (Get-Item $NerdFontFile).BaseName
             $NerdFontExtractedFiles = New-Item -ItemType Directory -Force -Path "$TempFolder\NerdFont\$NerdFontFileBaseName"
@@ -232,7 +241,7 @@ if ($ManualInstallsRequired -gt 0) {
 
             # Extract the *.otf files for the font from the ZIP file
             # into the .temp directory folder
-            Expand-Archive -Force -Path $NerdFontFile -DestinationPath $NerdFontExtractedFiles 
+            Expand-Archive -Force -Path $NerdFontFile -DestinationPath $NerdFontExtractedFiles
 
             $NerdFontNames = @(
                 "DroidSansMNerdFontMono-Regular.otf",
