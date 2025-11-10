@@ -1,0 +1,51 @@
+# powertoys.dsc.yaml
+properties:
+    resources:
+        - resource: Microsoft.WinGet.DSC/WinGetPackage
+          id: installPowerToys
+          directives:
+              description: Install PowerToys
+              allowPrerelease: true
+          settings:
+              id: Microsoft.PowerToys
+              source: winget
+
+        - resource: Microsoft.PowerToys.Configure/PowerToysConfigure
+          dependsOn:
+              - installPowerToys
+          directives:
+              description: Configure PowerToys
+          settings:
+              # Disable LightSwitch automatically, always want
+              # dark mode (and also, the default configuration
+              # at one point set an automatic schedule that kept
+              # turning off dark mode every time it was turned on)
+              LightSwitch:
+                  Enabled: false
+              # FancyZones is the most complicated to configure,
+              # because the goal is to make it work as close as
+              # possible to a tiling WM like i3 or something that
+              # you might find in a Linux distro. These settings
+              # help get FancyZones closer than the default config
+              FancyZones:
+                  Enabled: true
+                  FancyzonesShiftDrag: true
+                  FancyzonesOverrideSnapHotkeys: true
+                  FancyzonesMoveWindowsAcrossMonitors: true
+                  FancyzonesMoveWindowsBasedOnPosition: true
+                  FancyzonesDisplayOrWorkAreaChangeMoveWindows: true
+                  FancyzonesZoneSetChangeMoveWindows: true
+                  FancyzonesAppLastZoneMoveWindows: true
+                  FancyzonesOpenWindowOnActiveMonitor: true
+                  FancyzonesRestoreSize: false
+                  FancyzonesQuickLayoutSwitch: true
+                  FancyzonesFlashZonesOnQuickSwitch: true
+                  FancyzonesShowOnAllMonitors: true
+                  FancyzonesSpanZonesAcrossMonitors: false
+                  FancyzonesMakeDraggedWindowTransparent: true
+                  FancyzonesAllowChildWindowSnap: true
+                  FancyzonesDisableRoundCornersOnSnap: false
+                  FancyzonesWindowSwitching: true
+                  FancyzonesSystemTheme: true
+                  FancyzonesShowZoneNumber: true
+    configurationVersion: 0.2.0

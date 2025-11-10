@@ -166,10 +166,19 @@ $NeovimInstallDepConfig = Convert-Path "$PSScriptRoot\..\.nvim\InstallDependenci
 & $NeovimInstallDepConfig
 
 # Install PowerToys from configuration
-$PowerToysConfig = "$PSScriptRoot\..\.powertoys\powertoys.winget"
+#
+# The best documentation for doing this comes from PowerToys itself
+# (WinGet has documentation for PowerShell DSC, but it is not as useful here):
+# https://github.com/microsoft/PowerToys/blob/main/doc/devdocs/core/settings/dsc-configure.md
+#
+# The individual DSC module options for the Microsoft.PowerToys.Configure/PowerToysConfigure
+# resource to configure the different utilities in PowerToys can be found here:
+# https://learn.microsoft.com/en-us/windows/powertoys/dsc-configure/psdsc
+$PowerToysConfig = "$PSScriptRoot\..\.powertoys\powertoys.dsc.yaml"
 winget configure $PowerToysConfig
 
-# Replace custom layouts for FancyZones in PowerToys
+# Replace custom layouts for FancyZones in PowerToys, there is no way to do this
+# from the above PowerShell DSC configuration file as of writing
 $FancyZonesCustomLayoutsPath = "$env:LOCALAPPDATA\Microsoft\PowerToys\FancyZones"
 
 Copy-Item -Path "$PSScriptRoot\..\.powertoys\custom-layouts.json" -Destination $FancyZonesCustomLayoutsPath
