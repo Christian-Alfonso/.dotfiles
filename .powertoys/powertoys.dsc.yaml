@@ -32,7 +32,7 @@ properties:
                   FancyzonesShiftDrag: true
                   FancyzonesOverrideSnapHotkeys: true
                   FancyzonesMoveWindowsAcrossMonitors: true
-                  FancyzonesMoveWindowsBasedOnPosition: true
+                  FancyzonesMoveWindowsBasedOnPosition: false
                   FancyzonesDisplayOrWorkAreaChangeMoveWindows: true
                   FancyzonesZoneSetChangeMoveWindows: true
                   FancyzonesAppLastZoneMoveWindows: true
