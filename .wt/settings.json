@@ -4,10 +4,6 @@
     "actions": 
     [
         {
-            "command": "find",
-            "id": "User.find"
-        },
-        {
             "command": 
             {
                 "action": "splitPane",
@@ -25,6 +21,10 @@
             "id": "User.switchToTab.7D60DC69"
         },
         {
+            "command": "find",
+            "id": "User.find"
+        },
+        {
             "command": 
             {
                 "action": "nextTab"
@@ -37,6 +37,14 @@
                 "action": "prevTab"
             },
             "id": "User.prevTab.0"
+        },
+        {
+            "command": 
+            {
+                "action": "switchToTab",
+                "index": 0
+            },
+            "id": "User.switchToTab.D3F0B923"
         },
         {
             "command": 
@@ -57,10 +65,10 @@
         {
             "command": 
             {
-                "action": "switchToTab",
-                "index": 0
+                "action": "sendInput",
+                "input": "\u001b\b"
             },
-            "id": "User.switchToTab.D3F0B923"
+            "id": "User.sendInput.5E59B47E"
         }
     ],
     "alwaysShowTabs": true,
@@ -70,6 +78,10 @@
     "initialPosition": ",",
     "keybindings": 
     [
+        {
+            "id": "User.sendInput.5E59B47E",
+            "keys": "ctrl+backspace"
+        },
         {
             "id": "User.switchToTab.D3F0B923",
             "keys": "ctrl+home"
@@ -115,8 +127,9 @@
     "newTabMenu": 
     [
         {
-            "type": "profile",
-            "profile": "Tmux Initialization"
+            "icon": null,
+            "profile": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+            "type": "profile"
         },
         {
             "type": "remainingProfiles"
@@ -149,9 +162,9 @@
             },
             {
                 "commandline": "pwsh.exe",
+                "elevate": true,
                 "guid": "{a3ed8a73-03b7-4e67-9082-bf69ac266d7c}",
                 "hidden": false,
-                "elevate": true,
                 "name": "PowerShell 7 (Admin)"
             }
         ]
