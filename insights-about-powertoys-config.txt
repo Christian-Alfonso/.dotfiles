@@ -1,4 +1,0 @@
-New Plus - username
-PowerToys Run - username
-
-manifest.json - computer name

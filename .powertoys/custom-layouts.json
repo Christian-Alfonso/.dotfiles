@@ -1,0 +1,59 @@
+{
+  "custom-layouts": [
+    {
+      "uuid": "{74E557B9-EADE-4DCE-87FA-EC68A5FAC02D}",
+      "name": "944-1616 Horizontal Split",
+      "type": "grid",
+      "info": {
+        "rows": 1,
+        "columns": 2,
+        "rows-percentage": [
+          10000
+        ],
+        "columns-percentage": [
+          3688,
+          6312
+        ],
+        "cell-child-map": [
+          [
+            0,
+            1
+          ]
+        ],
+        "show-spacing": false,
+        "spacing": 16,
+        "sensitivity-radius": 20
+      }
+    },
+    {
+      "uuid": "{537ABD66-C757-4F4F-9077-F97A8A9CF7FC}",
+      "name": "944-1616 Horizontal Split with PIP window",
+      "type": "grid",
+      "info": {
+        "rows": 2,
+        "columns": 2,
+        "rows-percentage": [
+          3691,
+          6309
+        ],
+        "columns-percentage": [
+          3688,
+          6312
+        ],
+        "cell-child-map": [
+          [
+            0,
+            2
+          ],
+          [
+            1,
+            2
+          ]
+        ],
+        "show-spacing": false,
+        "spacing": 16,
+        "sensitivity-radius": 20
+      }
+    }
+  ]
+}
