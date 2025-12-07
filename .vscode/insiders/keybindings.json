@@ -164,22 +164,22 @@
     // Use "Ctrl+<Arrow>" for window navigation, since <C-w><Arrow> takes longer
     // and feels a bit inconsistent in VSCode
     {
-        "key": "ctrl+up",
+        "key": "alt+up",
         "command": "workbench.action.navigateUp",
         "when": "neovim.mode == 'normal'"
     },
     {
-        "key": "ctrl+down",
+        "key": "alt+down",
         "command": "workbench.action.navigateDown",
         "when": "neovim.mode == 'normal'"
     },
     {
-        "key": "ctrl+left",
+        "key": "alt+left",
         "command": "workbench.action.navigateLeft",
         "when": "neovim.mode == 'normal'"
     },
     {
-        "key": "ctrl+right",
+        "key": "alt+right",
         "command": "workbench.action.navigateRight",
         "when": "neovim.mode == 'normal'"
     },
@@ -294,22 +294,22 @@
     // Use "Shift+<Arrow>" for window resizing, since <C-w><Plus/Minus/Angle Bracket>
     // takes much longer to easily repeat in VSCode
     {
-        "key": "shift+up",
+        "key": "ctrl+alt+up",
         "command": "workbench.action.increaseViewHeight",
         "when": "neovim.mode == 'normal'"
     },
     {
-        "key": "shift+down",
+        "key": "ctrl+alt+down",
         "command": "workbench.action.decreaseViewHeight",
         "when": "neovim.mode == 'normal'"
     },
     {
-        "key": "shift+right",
+        "key": "ctrl+alt+right",
         "command": "workbench.action.increaseViewWidth",
         "when": "neovim.mode == 'normal'"
     },
     {
-        "key": "shift+left",
+        "key": "ctrl+alt+left",
         "command": "workbench.action.decreaseViewWidth",
         "when": "neovim.mode == 'normal'"
     },
