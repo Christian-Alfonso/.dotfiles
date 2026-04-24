@@ -1,5 +1,12 @@
 #!/bin/bash
 
+#
+# setup-wsl.sh
+#
+# Script for automatically setting up a new WSL installation (assumes Ubuntu) to
+# install and copy over the necessary configuration files for each program.
+#
+
 # Move to the path where the script is being run
 cd $(wslpath -a "")
 
