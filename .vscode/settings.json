@@ -3,7 +3,8 @@
     // Language and Files Settings
     //
     "files.associations": {
-        "*.py": "python"
+        "*.py": "python",
+        "exports": "ini"
     },
     "files.trimTrailingWhitespace": false,
     "files.trimTrailingWhitespaceInRegexAndStrings": false,
@@ -19,7 +20,9 @@
     "[json]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
-    "prettier.proseWrap": "always",
+    "[dockercompose]": {
+        "editor.defaultFormatter": "ms-azuretools.vscode-containers"
+    },
     //
     // Window/View Settings
     //
@@ -45,13 +48,16 @@
     //
     // Extensions Settings
     //
+    "docker.extension.enableComposeLanguageServer": false,
     "extensions.experimental.affinity": {
         "asvetliakov.vscode-neovim": 1
     },
     "git.autofetch": true,
     "powershell.startAutomatically": false,
+    "prettier.proseWrap": "always",
     "gitlens.codeLens.authors.enabled": false,
     "gitlens.codeLens.recentChange.enabled": false,
+    "redhat.telemetry.enabled": false,
     //
     // Window and Other Cosmetic Settings
     //
@@ -61,6 +67,7 @@
     "window.density.editorTabHeight": "compact",
     "workbench.panel.defaultLocation": "top",
     "workbench.sideBar.location": "right",
+    "workbench.editor.useModal": "off",
     "window.commandCenter": false,
     "editor.cursorBlinking": "smooth",
     "editor.cursorSmoothCaretAnimation": "explicit",
@@ -144,6 +151,7 @@
     //
     // Miscellaneous Settings
     //
+    "dev.containers.executeInWSL": true,
     "update.mode": "manual",
     //
     // Disabled Settings
