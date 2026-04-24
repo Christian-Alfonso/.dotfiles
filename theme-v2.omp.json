@@ -23,21 +23,14 @@
           }
         },
         {
-          "template": "\uf0e7 ",
-          "foreground": "#ffff66",
-          "background": "transparent",
-          "type": "root",
-          "style": "diamond",
-          "properties": {
-            "cache_duration": "none"
-          }
-        },
-        {
           "background": "transparent",
           "foreground": "#D6DEEB",
           "style": "diamond",
-          "template": " \uf09c admin ",
-          "type": "root"
+          "template": " <#ffff66>\uf0e7</> \uf09c admin ",
+          "type": "root",
+          "properties": {
+            "cache_duration": "none"
+          }
         },
         {
           "type": "cmake",
