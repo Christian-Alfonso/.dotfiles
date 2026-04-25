@@ -123,6 +123,12 @@ bindkey "^H" backward-kill-word
 # from the autosuggestion to the end of the pasted text
 ZSH_AUTOSUGGEST_CLEAR_WIDGETS+=(bracketed-paste)
 
+# Runs on every prompt refresh after a command finishes
+precmd() {
+    # Restore cursor to steady bar
+    printf "\e[6 q"
+}
+
 # Start oh-my-posh to get theme on top of ZSH
 # (expects theme to exist at the given filepath)
 eval "$(oh-my-posh init zsh --config ~/theme-v2.omp.json)"

@@ -35,4 +35,16 @@ Set-Alias -Name codei -Value "$env:LOCALAPPDATA\Programs\Microsoft VS Code Insid
 
 oh-my-posh init pwsh --config "$env:USERPROFILE\theme-v2.omp.json" | Invoke-Expression
 
+# Capture the original Oh-My-Posh prompt function
+$originalPrompt = $function:prompt
+
+# Runs on every prompt refresh after a command finishes
+function prompt {
+    # Restore cursor to steady bar
+    Write-Host "`e[6 q" -NoNewline
+
+    # Call the original OMP prompt
+    & $originalPrompt
+}
+
 # --------------------------------- #
