@@ -55,20 +55,13 @@ cp .tmux.conf ~/.tmux.conf
 # Configure Neovim
 #
 
-# Install Neovim from their example:
-# https://github.com/neovim/neovim/blob/master/INSTALL.md#pre-built-archives-2
-curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
-sudo rm -rf /opt/nvim
-sudo tar -C /opt -xzf nvim-linux-x86_64.tar.gz
-sudo rm nvim-linux-x86_64.tar.gz
+# Install Neovim with dependencies
+sudo sh .nvim/install-with-dependencies.sh
 
 # Copy over Neovim configuration
 mkdir ~/.config
 mkdir ~/.config/nvim
 cp -a .nvim/. ~/.config/nvim
-
-# Install Neovim dependencies
-sudo sh .nvim/install-dependencies.sh
 
 # Install Oh-My-Posh from their example:
 # https://ohmyposh.dev/docs/installation/linux#installation

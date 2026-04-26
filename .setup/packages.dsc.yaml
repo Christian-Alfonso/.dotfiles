@@ -1,0 +1,26 @@
+# packages.dsc.yaml
+#
+# Installs the core development tool packages needed for the rest of the
+# development environment setup. Intended to be run early in setup-windows.ps1
+# before other configuration steps that depend on these tools.
+#
+# Note: Git is intentionally excluded here. The setup-windows.ps1 script
+# has a -NormalGit switch that selects between Microsoft.Git (default,
+# with VFS for Git / Scalar support) and Git.Git (standard release).
+# Since DSC files do not support conditional logic, Git is installed
+# directly by setup-windows.ps1 before this file is applied.
+#
+# See:
+#   https://learn.microsoft.com/en-us/windows/package-manager/configuration/
+
+properties:
+    configurationVersion: 0.2.0
+    resources:
+        - resource: Microsoft.WinGet.DSC/WinGetPackage
+          id: installOhMyPosh
+          directives:
+              description: Install Oh-My-Posh for PowerShell prompt theming
+              allowPrerelease: false
+          settings:
+              id: JanDeDobbeleer.OhMyPosh
+              source: winget
