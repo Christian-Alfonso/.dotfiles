@@ -11,7 +11,7 @@
 cd $(wslpath -a "")
 
 # Always update package lists first
-sudo apt update
+sudo apt update || exit 1
 
 #
 # Configure Git
@@ -31,7 +31,7 @@ NC='\033[0m' # No Color
 echo -e "${YELLOW}TYPE EXIT AT ZSH PROMPT TO CONTINUE SETUP${NC}"
 
 # Install ZSH
-sudo apt install zsh
+sudo apt install zsh || exit 1
 
 # Install Oh My ZSH from their install script
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -43,10 +43,22 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 cp -a .zsh/. ~
 
 # Change default shell to ZSH
-chsh -s /bin/zsh
+# Retry on authentication failure; exit on any other error
+echo -n "Password: "
+until chsh_error=$(chsh -s /bin/zsh 2>&1); do
+    if echo "$chsh_error" | grep -qi "authentication\|pam\|sorry\|incorrect"; then
+        echo -e "${YELLOW}Incorrect password, please try again${NC}"
+
+        # Reshow prompt on password failure
+        echo -n "Password: "
+    else
+        echo "Failed to change shell: $chsh_error" >&2
+        exit 1
+    fi
+done
 
 # Install Tmux
-sudo apt install tmux
+sudo apt install tmux || exit 1
 
 # Copy over Tmux configuration
 cp .tmux.conf ~/.tmux.conf
@@ -56,7 +68,7 @@ cp .tmux.conf ~/.tmux.conf
 #
 
 # Install Neovim with dependencies
-sudo .nvim/install-with-dependencies.sh
+sudo .nvim/install-with-dependencies.sh || exit 1
 
 # Copy over Neovim configuration
 mkdir ~/.config
@@ -65,7 +77,7 @@ cp -a .nvim/. ~/.config/nvim
 
 # Install Oh-My-Posh from their example:
 # https://ohmyposh.dev/docs/installation/linux#installation
-sudo apt install unzip
+sudo apt install unzip || exit 1
 curl -s https://ohmyposh.dev/install.sh | bash -s
 
 # Copy over Oh-My-Posh configuration

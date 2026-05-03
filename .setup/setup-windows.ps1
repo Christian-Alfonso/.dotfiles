@@ -285,6 +285,8 @@ $NeovimCopyConfig = Convert-Path "$PSScriptRoot\..\.nvim\CopyConfiguration.ps1"
 $PowerToysConfig = "$PSScriptRoot\..\.powertoys\powertoys.dsc.yaml"
 winget configure $PowerToysConfig
 
+Read-Host "PowerToys will open now, close it and continue by pressing enter..."
+
 # Replace custom layouts for FancyZones in PowerToys, there is no way to do this
 # from the above PowerShell DSC configuration file as of writing
 $FancyZonesCustomLayoutsPath = "$env:LOCALAPPDATA\Microsoft\PowerToys\FancyZones\custom-layouts.json"
