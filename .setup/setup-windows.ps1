@@ -178,8 +178,16 @@ $ExtensionsList = Get-Content "$PSScriptRoot\..\.vscode\extensions.txt"
 # for us before copying over the configuration files, while also
 # installing all of the extensions that we want, so we do not have
 # to wait for VSCode's settings sync to do so automatically
-foreach ($Extension in $ExtensionsList) {
-    & $VSCode --install-extension $Extension
+$InstalledExtensions = & $VSCode --list-extensions
+$MissingExtensions = $ExtensionsList | Where-Object { $InstalledExtensions -notcontains $_ }
+
+if ($MissingExtensions) {
+    foreach ($Extension in $MissingExtensions) {
+        & $VSCode --install-extension $Extension
+    }
+}
+else {
+    Write-Host "All VSCode extensions already installed, skipping"
 }
 
 # Create VSCode user directory if it still does not exist somehow
@@ -221,8 +229,16 @@ if (!$NoVSCodeInsiders) {
     # paths for us before copying over the configuration files, while also
     # installing all of the extensions that we want, so we do not have
     # to wait for VSCode Insiders's settings sync to do so automatically
-    foreach ($Extension in $ExtensionsInsidersList) {
-        & $VSCodeInsiders --install-extension $Extension
+    $InstalledInsidersExtensions = & $VSCodeInsiders --list-extensions
+    $MissingInsidersExtensions = $ExtensionsInsidersList | Where-Object { $InstalledInsidersExtensions -notcontains $_ }
+
+    if ($MissingInsidersExtensions) {
+        foreach ($Extension in $MissingInsidersExtensions) {
+            & $VSCodeInsiders --install-extension $Extension
+        }
+    }
+    else {
+        Write-Host "All VSCode Insiders extensions already installed, skipping"
     }
 
     # Create VSCode Insiders user directory if it still does not exist somehow
