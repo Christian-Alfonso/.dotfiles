@@ -20,7 +20,7 @@ sudo apt update
 # Even though this is a PowerShell script, it does NOT
 # require PowerShell to be installed; see the file itself
 # for the workaround being used here
-sh .setup/setup-git.ps1
+.setup/setup-git.ps1
 
 #
 # Configure shell
@@ -56,7 +56,7 @@ cp .tmux.conf ~/.tmux.conf
 #
 
 # Install Neovim with dependencies
-sudo sh .nvim/install-with-dependencies.sh
+sudo .nvim/install-with-dependencies.sh
 
 # Copy over Neovim configuration
 mkdir ~/.config
