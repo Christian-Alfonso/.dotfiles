@@ -17,7 +17,7 @@ properties:
     configurationVersion: 0.2.0
     resources:
         - resource: Microsoft.WinGet.DSC/WinGetPackage
-          id: installOhMyPosh
+          id: InstallOhMyPosh
           directives:
               description: Install Oh-My-Posh for PowerShell prompt theming
               allowPrerelease: false

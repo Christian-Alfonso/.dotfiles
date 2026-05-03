@@ -1,8 +1,9 @@
 # powertoys.dsc.yaml
 properties:
+    configurationVersion: 0.2.0
     resources:
         - resource: Microsoft.WinGet.DSC/WinGetPackage
-          id: installPowerToys
+          id: InstallPowerToys
           directives:
               description: Install PowerToys
               allowPrerelease: true
@@ -12,7 +13,7 @@ properties:
 
         - resource: Microsoft.PowerToys.Configure/PowerToysConfigure
           dependsOn:
-              - installPowerToys
+              - InstallPowerToys
           directives:
               description: Configure PowerToys
           settings:
@@ -48,4 +49,3 @@ properties:
                   FancyzonesWindowSwitching: true
                   FancyzonesSystemTheme: true
                   FancyzonesShowZoneNumber: true
-    configurationVersion: 0.2.0
