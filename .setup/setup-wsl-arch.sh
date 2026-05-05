@@ -13,12 +13,17 @@ cd $(wslpath -a "")
 # Always sync package databases and upgrade first
 pacman -Syu --noconfirm || exit 1
 
+# Generate en_US.UTF-8 locale; Arch ships with no locales compiled by default
+sed -i 's/#en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen
+locale-gen
+echo 'LANG=en_US.UTF-8' > /etc/locale.conf
+
 #
 # Configure Git
 #
 
 # Git does not come with Arch by default, so it needs to be installed first thing
-pacman -S --noconfirm git || exit 1
+pacman -S --noconfirm --needed git || exit 1
 
 # Even though this is a PowerShell script, it does NOT
 # require PowerShell to be installed; see the file itself
@@ -34,7 +39,7 @@ NC='\033[0m' # No Color
 echo -e "${YELLOW}TYPE EXIT AT ZSH PROMPT TO CONTINUE SETUP${NC}"
 
 # Install ZSH
-pacman -S --noconfirm zsh || exit 1
+pacman -S --noconfirm --needed zsh || exit 1
 
 # Install Oh My ZSH from their install script
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -49,7 +54,7 @@ cp -a .zsh/. ~
 chsh -s "$(command -v zsh)" || exit 1
 
 # Install Tmux
-pacman -S --noconfirm tmux || exit 1
+pacman -S --noconfirm --needed tmux || exit 1
 
 # Copy over Tmux configuration
 cp .tmux.conf ~/.tmux.conf
@@ -68,7 +73,7 @@ cp -a .nvim/. ~/.config/nvim
 
 # Install Oh-My-Posh from their example:
 # https://ohmyposh.dev/docs/installation/linux#installation
-pacman -S --noconfirm unzip || exit 1
+pacman -S --noconfirm --needed unzip || exit 1
 curl -s https://ohmyposh.dev/install.sh | bash -s
 
 # Copy over Oh-My-Posh configuration

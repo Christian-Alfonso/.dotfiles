@@ -28,3 +28,7 @@ fi
 
 # additional binaries to add to the PATH
 PATH="/opt/nvim-linux-x86_64/bin:$PATH"
+
+# Set locale explicitly so that all child processes (tmux, Neovim, etc.)
+# inherit a UTF-8 locale. Arch does not set LC_ALL by default.
+export LC_ALL=en_US.UTF-8
