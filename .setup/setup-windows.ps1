@@ -328,7 +328,7 @@ else {
     $PowerToysConfig = "$PSScriptRoot\..\.powertoys\powertoys.dsc.yaml"
     winget configure $PowerToysConfig
 
-    Read-Host "PowerToys will open now, close it and continue by pressing enter..."
+    Read-Host "PowerToys might open now, be aware that it can take focus from terminal. Continue by pressing any key..."
 
     # Replace custom layouts for FancyZones in PowerToys, there is no way to do this
     # from the above PowerShell DSC configuration file as of writing
@@ -453,7 +453,7 @@ if ($ManualInstallsRequired -gt 0) {
             }
 
             Write-Host "`n"
-            Read-Host "Continue by pressing enter after installation..."
+            Read-Host "Continue by pressing any key after installation..."
 
             # Clean up by removing the downloaded file after extracting,
             # the extracted files will be cleaned up at the end by the
