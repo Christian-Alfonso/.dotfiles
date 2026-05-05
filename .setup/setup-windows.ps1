@@ -335,8 +335,9 @@ Copy-Item `
 Write-Host "Configuring WSL, you will likely be prompted more than once for root password..."
 
 $SetupWSLScript = if ($UseUbuntuWSL) { "setup-wsl-ubuntu.sh" } else { "setup-wsl-arch.sh" }
-$SetupWSLScriptPath = wsl.exe wslpath -a -u "$PSScriptRoot\$SetupWSLScript".Replace("\\", "\\\\")
-wsl.exe -e bash -c "chmod +x $SetupWSLScriptPath; $SetupWSLScriptPath"
+$WSLDistro = if ($UseUbuntuWSL) { "Ubuntu" } else { "archlinux" }
+$SetupWSLScriptPath = wsl.exe -d $WSLDistro wslpath -a -u "$PSScriptRoot\$SetupWSLScript".Replace("\", "\\")
+wsl.exe -d $WSLDistro -e bash -c "chmod +x $SetupWSLScriptPath; $SetupWSLScriptPath"
 
 if ($LASTEXITCODE -ne 0) {
     throw "WSL configuration failed!"

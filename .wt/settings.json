@@ -155,7 +155,7 @@
         "list": 
         [
             {
-                "commandline": "wsl.exe -e bash -c \"tmux new -As0 pwsh.exe\"",
+                "commandline": "wsl.exe -d archlinux -e bash -c \"tmux new -As0 pwsh.exe\"",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
                 "hidden": false,
                 "name": "Tmux Initialization"
