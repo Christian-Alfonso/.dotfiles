@@ -5,7 +5,7 @@
 *.sh text eol=lf
 
 # These config files are on Linux, and require LF
-tmux.conf text eol=lf
+.tmux.conf text eol=lf
 .zshrc text eol=lf
 .zprofile text eol=lf
 
