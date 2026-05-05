@@ -56,6 +56,13 @@ param(
     # lead to issues.
     [switch] $NoFontInstall,
 
+    # Do not install and configure PowerToys for
+    # FancyZones to partition windows into zones.
+    # PowerToys installation frequently breaks with
+    # little explanation, use this to skip if you
+    # would like to install everything else
+    [switch] $NoPowerToys,
+
     # Use Ubuntu as the WSL distribution instead of the default Arch Linux.
     # Useful as a fallback if there are issues with the Arch Linux setup.
     # Requires Ubuntu WSL to be installed first:
@@ -314,19 +321,24 @@ $NeovimCopyConfig = Convert-Path "$PSScriptRoot\..\.nvim\CopyConfiguration.ps1"
 # resource to configure the different utilities in PowerToys can be found here:
 # https://learn.microsoft.com/en-us/windows/powertoys/dsc-configure/psdsc
 
-$PowerToysConfig = "$PSScriptRoot\..\.powertoys\powertoys.dsc.yaml"
-winget configure $PowerToysConfig
+if ($NoPowerToys) {
+    Write-Host "Skipping PowerToys installation and configuration"
+}
+else {
+    $PowerToysConfig = "$PSScriptRoot\..\.powertoys\powertoys.dsc.yaml"
+    winget configure $PowerToysConfig
 
-Read-Host "PowerToys will open now, close it and continue by pressing enter..."
+    Read-Host "PowerToys will open now, close it and continue by pressing enter..."
 
-# Replace custom layouts for FancyZones in PowerToys, there is no way to do this
-# from the above PowerShell DSC configuration file as of writing
-$FancyZonesCustomLayoutsPath = "$env:LOCALAPPDATA\Microsoft\PowerToys\FancyZones\custom-layouts.json"
+    # Replace custom layouts for FancyZones in PowerToys, there is no way to do this
+    # from the above PowerShell DSC configuration file as of writing
+    $FancyZonesCustomLayoutsPath = "$env:LOCALAPPDATA\Microsoft\PowerToys\FancyZones\custom-layouts.json"
 
-Copy-Item `
-    -Path "$PSScriptRoot\..\.powertoys\custom-layouts.json" `
-    -Destination $FancyZonesCustomLayoutsPath `
-    -Force
+    Copy-Item `
+        -Path "$PSScriptRoot\..\.powertoys\custom-layouts.json" `
+        -Destination $FancyZonesCustomLayoutsPath `
+        -Force
+}
 
 #
 # Configure WSL
