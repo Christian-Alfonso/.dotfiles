@@ -11,11 +11,14 @@
 cd $(wslpath -a "")
 
 # Always sync package databases and upgrade first
-sudo pacman -Syu --noconfirm || exit 1
+pacman -Syu --noconfirm || exit 1
 
 #
 # Configure Git
 #
+
+# Git does not come with Arch by default, so it needs to be installed first thing
+pacman -S --noconfirm git || exit 1
 
 # Even though this is a PowerShell script, it does NOT
 # require PowerShell to be installed; see the file itself
@@ -31,7 +34,7 @@ NC='\033[0m' # No Color
 echo -e "${YELLOW}TYPE EXIT AT ZSH PROMPT TO CONTINUE SETUP${NC}"
 
 # Install ZSH
-sudo pacman -S --noconfirm zsh || exit 1
+pacman -S --noconfirm zsh || exit 1
 
 # Install Oh My ZSH from their install script
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -43,22 +46,10 @@ git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-m
 cp -a .zsh/. ~
 
 # Change default shell to ZSH
-# Retry on authentication failure; exit on any other error
-echo -n "Password: "
-until chsh_error=$(chsh -s $(which zsh) 2>&1); do
-    if echo "$chsh_error" | grep -qi "authentication\|pam\|sorry\|incorrect"; then
-        echo -e "${YELLOW}Incorrect password, please try again${NC}"
-
-        # Reshow prompt on password failure
-        echo -n "Password: "
-    else
-        echo "Failed to change shell: $chsh_error" >&2
-        exit 1
-    fi
-done
+chsh -s "$(command -v zsh)" || exit 1
 
 # Install Tmux
-sudo pacman -S --noconfirm tmux || exit 1
+pacman -S --noconfirm tmux || exit 1
 
 # Copy over Tmux configuration
 cp .tmux.conf ~/.tmux.conf
@@ -68,11 +59,7 @@ cp .tmux.conf ~/.tmux.conf
 #
 
 # Install Neovim with dependencies
-# Note: .nvim/install-with-dependencies.sh also needs to be updated in the
-# .nvim submodule to replace apt package installs (fd-find, ripgrep,
-# build-essential, clang) with their pacman equivalents (fd, ripgrep,
-# base-devel, clang). The tarball, Rust, and CMake installs are unaffected.
-sudo .nvim/install-with-dependencies.sh || exit 1
+.nvim/install-with-dependencies-arch.sh || exit 1
 
 # Copy over Neovim configuration
 mkdir ~/.config
@@ -81,8 +68,10 @@ cp -a .nvim/. ~/.config/nvim
 
 # Install Oh-My-Posh from their example:
 # https://ohmyposh.dev/docs/installation/linux#installation
-sudo pacman -S --noconfirm unzip || exit 1
+pacman -S --noconfirm unzip || exit 1
 curl -s https://ohmyposh.dev/install.sh | bash -s
 
 # Copy over Oh-My-Posh configuration
 cp theme-v2.omp.json ~/theme-v2.omp.json
+
+echo "Arch Linux WSL setup complete!"

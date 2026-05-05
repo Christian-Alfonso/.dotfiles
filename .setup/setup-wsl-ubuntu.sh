@@ -68,7 +68,7 @@ cp .tmux.conf ~/.tmux.conf
 #
 
 # Install Neovim with dependencies
-sudo .nvim/install-with-dependencies.sh || exit 1
+sudo .nvim/install-with-dependencies-ubuntu.sh || exit 1
 
 # Copy over Neovim configuration
 mkdir ~/.config
@@ -82,3 +82,5 @@ curl -s https://ohmyposh.dev/install.sh | bash -s
 
 # Copy over Oh-My-Posh configuration
 cp theme-v2.omp.json ~/theme-v2.omp.json
+
+echo "Ubuntu WSL setup complete!"
