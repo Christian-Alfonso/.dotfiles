@@ -14,6 +14,8 @@
 #   (or)
 #   winget install --id Microsoft.PowerShell.Preview --source winget
 #
+#   wsl --install archlinux
+#   (or, when using -UseUbuntuWSL)
 #   wsl --install Ubuntu
 #
 # You may need to confirm that Ubuntu actually installed after running the WSL
@@ -52,7 +54,13 @@ param(
     # configurations without installation of the
     # intended fonts is not recommended, and can
     # lead to issues.
-    [switch] $NoFontInstall
+    [switch] $NoFontInstall,
+
+    # Use Ubuntu as the WSL distribution instead of the default Arch Linux.
+    # Useful as a fallback if there are issues with the Arch Linux setup.
+    # Requires Ubuntu WSL to be installed first:
+    #   wsl --install Ubuntu
+    [switch] $UseUbuntuWSL
 )
 
 $ErrorActionPreference = "Stop"
@@ -326,7 +334,8 @@ Copy-Item `
 
 Write-Host "Configuring WSL, you will likely be prompted more than once for root password..."
 
-$SetupWSLScriptPath = wsl.exe wslpath -a -u "$PSScriptRoot\setup-wsl.sh".Replace("\", "\\")
+$SetupWSLScript = if ($UseUbuntuWSL) { "setup-wsl-ubuntu.sh" } else { "setup-wsl-arch.sh" }
+$SetupWSLScriptPath = wsl.exe wslpath -a -u "$PSScriptRoot\$SetupWSLScript".Replace("\\", "\\\\")
 wsl.exe -e bash -c "chmod +x $SetupWSLScriptPath; $SetupWSLScriptPath"
 
 if ($LASTEXITCODE -ne 0) {

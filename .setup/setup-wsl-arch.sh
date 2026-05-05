@@ -1,17 +1,17 @@
 #!/bin/bash
 
 #
-# setup-wsl.sh
+# setup-wsl-arch.sh
 #
-# Script for automatically setting up a new WSL installation (assumes Ubuntu) to
+# Script for automatically setting up a new WSL installation (Arch Linux) to
 # install and copy over the necessary configuration files for each program.
 #
 
 # Move to the path where the script is being run
 cd $(wslpath -a "")
 
-# Always update package lists first
-sudo apt update || exit 1
+# Always sync package databases and upgrade first
+sudo pacman -Syu --noconfirm || exit 1
 
 #
 # Configure Git
@@ -31,7 +31,7 @@ NC='\033[0m' # No Color
 echo -e "${YELLOW}TYPE EXIT AT ZSH PROMPT TO CONTINUE SETUP${NC}"
 
 # Install ZSH
-sudo apt install zsh || exit 1
+sudo pacman -S --noconfirm zsh || exit 1
 
 # Install Oh My ZSH from their install script
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -45,7 +45,7 @@ cp -a .zsh/. ~
 # Change default shell to ZSH
 # Retry on authentication failure; exit on any other error
 echo -n "Password: "
-until chsh_error=$(chsh -s /bin/zsh 2>&1); do
+until chsh_error=$(chsh -s $(which zsh) 2>&1); do
     if echo "$chsh_error" | grep -qi "authentication\|pam\|sorry\|incorrect"; then
         echo -e "${YELLOW}Incorrect password, please try again${NC}"
 
@@ -58,7 +58,7 @@ until chsh_error=$(chsh -s /bin/zsh 2>&1); do
 done
 
 # Install Tmux
-sudo apt install tmux || exit 1
+sudo pacman -S --noconfirm tmux || exit 1
 
 # Copy over Tmux configuration
 cp .tmux.conf ~/.tmux.conf
@@ -68,6 +68,10 @@ cp .tmux.conf ~/.tmux.conf
 #
 
 # Install Neovim with dependencies
+# Note: .nvim/install-with-dependencies.sh also needs to be updated in the
+# .nvim submodule to replace apt package installs (fd-find, ripgrep,
+# build-essential, clang) with their pacman equivalents (fd, ripgrep,
+# base-devel, clang). The tarball, Rust, and CMake installs are unaffected.
 sudo .nvim/install-with-dependencies.sh || exit 1
 
 # Copy over Neovim configuration
@@ -77,7 +81,7 @@ cp -a .nvim/. ~/.config/nvim
 
 # Install Oh-My-Posh from their example:
 # https://ohmyposh.dev/docs/installation/linux#installation
-sudo apt install unzip || exit 1
+sudo pacman -S --noconfirm unzip || exit 1
 curl -s https://ohmyposh.dev/install.sh | bash -s
 
 # Copy over Oh-My-Posh configuration
