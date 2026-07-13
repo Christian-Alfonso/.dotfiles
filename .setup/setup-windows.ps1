@@ -14,6 +14,8 @@
 #   (or)
 #   winget install --id Microsoft.PowerShell.Preview --source winget
 #
+#   wsl --install archlinux
+#   (or, when using -UseUbuntuWSL)
 #   wsl --install Ubuntu
 #
 # You may need to confirm that Ubuntu actually installed after running the WSL
@@ -52,7 +54,20 @@ param(
     # configurations without installation of the
     # intended fonts is not recommended, and can
     # lead to issues.
-    [switch] $NoFontInstall
+    [switch] $NoFontInstall,
+
+    # Do not install and configure PowerToys for
+    # FancyZones to partition windows into zones.
+    # PowerToys installation frequently breaks with
+    # little explanation, use this to skip if you
+    # would like to install everything else
+    [switch] $NoPowerToys,
+
+    # Use Ubuntu as the WSL distribution instead of the default Arch Linux.
+    # Useful as a fallback if there are issues with the Arch Linux setup.
+    # Requires Ubuntu WSL to be installed first:
+    #   wsl --install Ubuntu
+    [switch] $UseUbuntuWSL
 )
 
 $ErrorActionPreference = "Stop"
@@ -306,28 +321,33 @@ $NeovimCopyConfig = Convert-Path "$PSScriptRoot\..\.nvim\CopyConfiguration.ps1"
 # resource to configure the different utilities in PowerToys can be found here:
 # https://learn.microsoft.com/en-us/windows/powertoys/dsc-configure/psdsc
 
-$PowerToysConfig = "$PSScriptRoot\..\.powertoys\powertoys.dsc.yaml"
-winget configure $PowerToysConfig
+if ($NoPowerToys) {
+    Write-Host "Skipping PowerToys installation and configuration"
+}
+else {
+    $PowerToysConfig = "$PSScriptRoot\..\.powertoys\powertoys.dsc.yaml"
+    winget configure $PowerToysConfig
 
-Read-Host "PowerToys will open now, close it and continue by pressing enter..."
+    Read-Host "PowerToys might open now, be aware that it can take focus from terminal. Continue by pressing any key..."
 
-# Replace custom layouts for FancyZones in PowerToys, there is no way to do this
-# from the above PowerShell DSC configuration file as of writing
-$FancyZonesCustomLayoutsPath = "$env:LOCALAPPDATA\Microsoft\PowerToys\FancyZones\custom-layouts.json"
+    # Replace custom layouts for FancyZones in PowerToys, there is no way to do this
+    # from the above PowerShell DSC configuration file as of writing
+    $FancyZonesCustomLayoutsPath = "$env:LOCALAPPDATA\Microsoft\PowerToys\FancyZones\custom-layouts.json"
 
-Copy-Item `
-    -Path "$PSScriptRoot\..\.powertoys\custom-layouts.json" `
-    -Destination $FancyZonesCustomLayoutsPath `
-    -Force
+    Copy-Item `
+        -Path "$PSScriptRoot\..\.powertoys\custom-layouts.json" `
+        -Destination $FancyZonesCustomLayoutsPath `
+        -Force
+}
 
 #
 # Configure WSL
 #
 
-Write-Host "Configuring WSL, you will likely be prompted more than once for root password..."
-
-$SetupWSLScriptPath = wsl.exe wslpath -a -u "$PSScriptRoot\setup-wsl.sh".Replace("\", "\\")
-wsl.exe -e bash -c "chmod +x $SetupWSLScriptPath; $SetupWSLScriptPath"
+$SetupWSLScript = if ($UseUbuntuWSL) { "setup-wsl-ubuntu.sh" } else { "setup-wsl-arch.sh" }
+$WSLDistro = if ($UseUbuntuWSL) { "Ubuntu" } else { "archlinux" }
+$SetupWSLScriptPath = wsl.exe -d $WSLDistro wslpath -a -u "$PSScriptRoot\$SetupWSLScript".Replace("\", "\\")
+wsl.exe -d $WSLDistro -e bash -c "chmod +x $SetupWSLScriptPath; $SetupWSLScriptPath"
 
 if ($LASTEXITCODE -ne 0) {
     throw "WSL configuration failed!"
@@ -433,7 +453,7 @@ if ($ManualInstallsRequired -gt 0) {
             }
 
             Write-Host "`n"
-            Read-Host "Continue by pressing enter after installation..."
+            Read-Host "Continue by pressing any key after installation..."
 
             # Clean up by removing the downloaded file after extracting,
             # the extracted files will be cleaned up at the end by the
