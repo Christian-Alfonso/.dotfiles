@@ -323,5 +323,16 @@
         "key": "ctrl+shift+r",
         "command": "-editor.action.refactor",
         "when": "editorHasCodeActionsProvider && textInputFocus && !editorReadonly"
+    },
+    // "Ctrl+Alt+C" binds to make opening new or existing chat sessions slightly faster
+    {
+        "key": "ctrl+alt+c",
+        "command": "workbench.action.chat.history",
+        "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+alt+shift+c",
+        "command": "workbench.action.chat.openInNewWindow",
+        "when": "editorFocus"
     }
 ]

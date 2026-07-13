@@ -11,14 +11,17 @@
     "[python]": {
         "editor.defaultFormatter": "ms-python.black-formatter",
     },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
     "[markdown]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    "[json]": {
-        "editor.defaultFormatter": "vscode.json-language-features"
+    "[yaml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
     },
     "[dockercompose]": {
         "editor.defaultFormatter": "ms-azuretools.vscode-containers"
@@ -31,6 +34,7 @@
     "window.restoreWindows": "none",
     "workbench.iconTheme": "vscode-icons",
     "workbench.activityBar.location": "top",
+    "workbench.secondarySideBar.defaultVisibility": "hidden",
     "workbench.tree.enableStickyScroll": false,
     //
     // Editor Settings
@@ -52,7 +56,6 @@
     "extensions.experimental.affinity": {
         "asvetliakov.vscode-neovim": 1
     },
-    "git.autofetch": true,
     "powershell.startAutomatically": false,
     "prettier.proseWrap": "always",
     "gitlens.codeLens.authors.enabled": false,
@@ -169,6 +172,6 @@
     //
     // (Leave this section at the bottom
     // to section off any additional settings
-    // that VSCode add automatically)
+    // that VSCode may add automatically)
     //
 }
