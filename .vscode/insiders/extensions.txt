@@ -60,6 +60,5 @@ redhat.vscode-yaml
 rust-lang.rust-analyzer
 sumneko.lua
 tamasfe.even-better-toml
-twxs.cmake
 vadimcn.vscode-lldb
 vscode-icons-team.vscode-icons
