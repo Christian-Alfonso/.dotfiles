@@ -9,7 +9,7 @@
     "files.trimTrailingWhitespace": false,
     "files.trimTrailingWhitespaceInRegexAndStrings": false,
     "[python]": {
-        "editor.defaultFormatter": "ms-python.black-formatter",
+        "editor.defaultFormatter": "ms-python.black-formatter"
     },
     "[json]": {
         "editor.defaultFormatter": "vscode.json-language-features"
@@ -141,10 +141,10 @@
             "path": "${env:localappdata}\\Microsoft\\WindowsApps\\ubuntu.exe",
             "args": [
                 "run",
-                "tmux new-session",
+                "tmux new-session"
             ],
             "icon": "terminal-ubuntu"
-        },
+        }
     },
     "terminal.integrated.defaultProfile.windows": "Powershell 7 [Tmux]",
     "terminal.integrated.automationProfile.windows": {
@@ -155,7 +155,7 @@
     // Miscellaneous Settings
     //
     "dev.containers.executeInWSL": true,
-    "update.mode": "manual",
+    "update.mode": "manual"
     //
     // Disabled Settings
     //
