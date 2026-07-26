@@ -3,7 +3,7 @@
 #
 # Script for automatically building and installing a minimal Alpine WSL distro
 # to act as a local tmux service. Using a WSL distro instead of an OCI container
-# provides full Windows interop — pwsh.exe works, /mnt/c is mounted automatically.
+# provides full Windows interop - pwsh.exe works, /mnt/c is mounted automatically.
 #
 
 [CmdletBinding()]
@@ -21,7 +21,7 @@ $TmuxDistroPath = "$env:LOCALAPPDATA\WSL\$TmuxDistroName"
 $TmuxUser = "tmux"
 
 if (!$NoCleanup) {
-    # Guard: warn if the tmux distro is currently running — reinstalling it will
+    # Guard: warn if the tmux distro is currently running - reinstalling it will
     # terminate all active tmux sessions, including the one this may be called from.
     $RunningDistros = wsl --list --running --quiet 2>&1 |
         ForEach-Object { ($_.ToString()).Trim() -replace '\x00', '' } |
