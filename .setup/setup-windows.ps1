@@ -7,26 +7,23 @@
 
 # Requirements for complete setup that must be manually installed:
 #   - PowerShell 7 (to guarantee compatibility with this script)
-#   - WSL (to use Tmux, Windows Terminal profiles assume WSL is installed)
+#   - WSL with wslc support (to run the Tmux container)
 #
 # Can install these quickly through the following commands:
 #   winget install --id Microsoft.PowerShell --source winget
 #   (or)
 #   winget install --id Microsoft.PowerShell.Preview --source winget
 #
-#   wsl --install archlinux
-#   (or, when using -UseUbuntuWSL)
-#   wsl --install Ubuntu
-#
-# You may need to confirm that Ubuntu actually installed after running the WSL
-# command, it seems that sometimes the installation process will only install
-# WSL and not the distribution on the first run.
+#   wsl --install
+#   wsl --update --pre-release
+#   (wslc is a pre-release feature at the time of writing)
 #
 # Then restart your machine for WSL to finish installing.
 #
 # From:
 #   https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.5#install-powershell-using-winget-recommended
 #   https://learn.microsoft.com/en-us/windows/wsl/install
+#   https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-containers
 
 #Requires -Version 7.0
 #Requires -RunAsAdministrator
@@ -61,13 +58,7 @@ param(
     # PowerToys installation frequently breaks with
     # little explanation, use this to skip if you
     # would like to install everything else
-    [switch] $NoPowerToys,
-
-    # Use Ubuntu as the WSL distribution instead of the default Arch Linux.
-    # Useful as a fallback if there are issues with the Arch Linux setup.
-    # Requires Ubuntu WSL to be installed first:
-    #   wsl --install Ubuntu
-    [switch] $UseUbuntuWSL
+    [switch] $NoPowerToys
 )
 
 $ErrorActionPreference = "Stop"
@@ -340,18 +331,10 @@ else {
         -Force
 }
 
-#
-# Configure WSL
-#
-
-$SetupWSLScript = if ($UseUbuntuWSL) { "setup-wsl-ubuntu.sh" } else { "setup-wsl-arch.sh" }
-$WSLDistro = if ($UseUbuntuWSL) { "Ubuntu" } else { "archlinux" }
-$SetupWSLScriptPath = wsl.exe -d $WSLDistro wslpath -a -u "$PSScriptRoot\$SetupWSLScript".Replace("\", "\\")
-wsl.exe -d $WSLDistro -e bash -c "chmod +x $SetupWSLScriptPath; $SetupWSLScriptPath"
-
-if ($LASTEXITCODE -ne 0) {
-    throw "WSL configuration failed!"
-}
+# Install Tmux as a WSL2 container (WSLC), as there
+# is no native support for Tmux on Windows
+$TmuxInstallContainer = Convert-Path "$PSScriptRoot\..\.tmux\install-tmux-container.ps1"
+& $TmuxInstallContainer
 
 #
 # Manual Configurations/Installations
