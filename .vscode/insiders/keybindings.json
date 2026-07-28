@@ -334,5 +334,10 @@
         "key": "ctrl+alt+shift+c",
         "command": "workbench.action.chat.openInNewWindow",
         "when": "editorFocus"
+    },
+    {
+        "key": "ctrl+alt+shift+c",
+        "command": "workbench.action.chat.openInNewWindow",
+        "when": "inChat"
     }
 ]
