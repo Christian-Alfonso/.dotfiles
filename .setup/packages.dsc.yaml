@@ -10,6 +10,11 @@
 # Since DSC files do not support conditional logic, Git is installed
 # directly by setup-windows.ps1 before this file is applied.
 #
+# Note: Each package sets "useLatest: true" so that "winget configure"
+# upgrades already-installed packages to their latest version instead of
+# treating "already installed" as satisfying the desired state and skipping
+# the upgrade.
+#
 # See:
 #   https://learn.microsoft.com/en-us/windows/package-manager/configuration/
 
@@ -24,3 +29,4 @@ properties:
           settings:
               id: JanDeDobbeleer.OhMyPosh
               source: winget
+              useLatest: true

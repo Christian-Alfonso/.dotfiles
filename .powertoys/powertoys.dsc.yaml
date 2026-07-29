@@ -1,4 +1,9 @@
 # powertoys.dsc.yaml
+#
+# Note: The WinGetPackage resource sets "useLatest: true" so that
+# "winget configure" upgrades an already-installed PowerToys to the latest
+# version instead of treating "already installed" as satisfying the
+# desired state and skipping the upgrade.
 properties:
     configurationVersion: 0.2.0
     resources:
@@ -10,6 +15,7 @@ properties:
           settings:
               id: Microsoft.PowerToys
               source: winget
+              useLatest: true
 
         - resource: Microsoft.PowerToys.Configure/PowerToysConfigure
           dependsOn:
