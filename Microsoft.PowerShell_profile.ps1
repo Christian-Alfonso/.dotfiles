@@ -26,6 +26,12 @@ $env:PSREADLINE_VTINPUT=1
 # Ctrl+Left/Right and Ctrl+Backspace chords for word navigation/deletion)
 Set-PSReadLineKeyHandler -Chord Alt+Backspace -Function BackwardKillWord
 
+# Similarly, Shift+Enter is not recognized by PSReadLine at all (treated like Enter,
+# because Shift is not detected like it would through raw key inputs). Ctrl+Enter
+# also has a bug where it is detected as the character "j" because of the encoding,
+# so Alt+Enter is the only viable keybinding for an insert line command
+Set-PSReadLineKeyHandler -Chord Alt+Enter -Function InsertLineBelow
+
 # Explicitly set alias for VSCode Insiders, because "code-insiders"
 # is longer to type than just using "codei" as the alias name
 Set-Alias -Name codei -Value "$env:LOCALAPPDATA\Programs\Microsoft VS Code Insiders\bin\code-insiders.cmd"

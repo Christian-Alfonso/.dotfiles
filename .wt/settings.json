@@ -4,6 +4,10 @@
     "actions": 
     [
         {
+            "command": "find",
+            "id": "User.find"
+        },
+        {
             "command": 
             {
                 "action": "splitPane",
@@ -11,18 +15,6 @@
                 "splitMode": "duplicate"
             },
             "id": "User.splitPane.A6751878"
-        },
-        {
-            "command": 
-            {
-                "action": "switchToTab",
-                "index": 999
-            },
-            "id": "User.switchToTab.7D60DC69"
-        },
-        {
-            "command": "find",
-            "id": "User.find"
         },
         {
             "command": 
@@ -37,14 +29,6 @@
                 "action": "prevTab"
             },
             "id": "User.prevTab.0"
-        },
-        {
-            "command": 
-            {
-                "action": "switchToTab",
-                "index": 0
-            },
-            "id": "User.switchToTab.D3F0B923"
         },
         {
             "command": 
@@ -65,6 +49,22 @@
         {
             "command": 
             {
+                "action": "switchToTab",
+                "index": 0
+            },
+            "id": "User.switchToTab.D3F0B923"
+        },
+        {
+            "command": 
+            {
+                "action": "switchToTab",
+                "index": 4294967295
+            },
+            "id": "User.switchToTab.9CB19EED"
+        },
+        {
+            "command": 
+            {
                 "action": "sendInput",
                 "input": "\u001b\b"
             },
@@ -79,24 +79,24 @@
     "keybindings": 
     [
         {
-            "id": "User.sendInput.5E59B47E",
-            "keys": "ctrl+backspace"
+            "id": "User.splitPane.A6751878",
+            "keys": "alt+shift+d"
         },
         {
-            "id": "User.switchToTab.D3F0B923",
-            "keys": "ctrl+home"
+            "id": "User.sendInput.5E59B47E",
+            "keys": "ctrl+backspace"
         },
         {
             "id": "User.find",
             "keys": "ctrl+shift+f"
         },
         {
-            "id": "User.splitPane.A6751878",
-            "keys": "alt+shift+d"
+            "id": "User.switchToTab.D3F0B923",
+            "keys": "ctrl+home"
         },
         {
             "id": null,
-            "keys": "ctrl+shift+pgdn"
+            "keys": "ctrl+pgdn"
         },
         {
             "id": null,
@@ -104,7 +104,7 @@
         },
         {
             "id": null,
-            "keys": "ctrl+pgdn"
+            "keys": "ctrl+shift+pgdn"
         },
         {
             "id": null,
@@ -119,8 +119,12 @@
             "keys": "ctrl+shift+1"
         },
         {
-            "id": "User.switchToTab.7D60DC69",
+            "id": "User.switchToTab.9CB19EED",
             "keys": "ctrl+end"
+        },
+        {
+            "id": null,
+            "keys": "alt+enter"
         }
     ],
     "launchMode": "focus",
@@ -166,6 +170,12 @@
                 "guid": "{a3ed8a73-03b7-4e67-9082-bf69ac266d7c}",
                 "hidden": false,
                 "name": "PowerShell 7 (Admin)"
+            },
+            {
+                "guid": "{7d54b2e0-5d67-52b1-b187-0f1e4ec8783b}",
+                "hidden": false,
+                "name": "tmux",
+                "source": "Microsoft.WSL"
             }
         ]
     },
