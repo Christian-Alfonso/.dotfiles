@@ -152,6 +152,25 @@
         "icon": "terminal-powershell"
     },
     //
+    // Agent Settings
+    //
+    // Block ALL git and gh commands without exception.
+    "chat.tools.terminal.autoApprove": {
+        "/^git\\b/": false,
+        "/^gh\\b/": false
+    },
+    // Disable terminal auto-approval entirely. Without this, VSCode's
+    // built-in rules silently auto-approve common commands (ls, cat, etc.)
+    // after the first manual approval. With this off, every terminal command
+    // requires manual approval every single time.
+    "chat.tools.terminal.enableAutoApprove": false,
+    // Disable the execution subagent. This tool runs terminal commands in a
+    // background process and folds their output into the model's "thoughts",
+    // making all terminal activity invisible. Disabling it forces the agent to
+    // use VSCode's integrated terminal directly, where every command and its
+    // output are always visible.
+    "github.copilot.chat.executionSubagent.enabled": false,
+    //
     // Miscellaneous Settings
     //
     "dev.containers.executeInWSL": true,
