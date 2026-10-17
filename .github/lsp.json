@@ -1,0 +1,51 @@
+{
+  "lspServers": {
+    "rust": {
+      "command": "rust-analyzer",
+      "fileExtensions": {
+        ".rs": "rust"
+      }
+    },
+    "python": {
+      "command": "pyright-langserver",
+      "args": ["--stdio"],
+      "fileExtensions": {
+        ".py": "python",
+        ".pyi": "python",
+        ".pyw": "python"
+      }
+    },
+    "ccpp": {
+      "command": "clangd",
+      "fileExtensions": {
+        ".c": "c",
+        ".h": "c",
+        ".cc": "cpp",
+        ".cpp": "cpp",
+        ".cxx": "cpp",
+        ".hh": "cpp",
+        ".hpp": "cpp"
+      }
+    },
+    "typescript": {
+      "command": "typescript-language-server",
+      "args": ["--stdio"],
+      "fileExtensions": {
+        ".ts": "typescript",
+        ".tsx": "typescriptreact",
+        ".js": "javascript",
+        ".jsx": "javascriptreact",
+        ".mjs": "javascript",
+        ".cjs": "javascript"
+      }
+    },
+    "lua": {
+      "command": "lua-language-server",
+      "args": ["--stdio"],
+      "fileExtensions": {
+        ".lua": "lua",
+        ".luau": "lua"
+      }
+    }
+  }
+}

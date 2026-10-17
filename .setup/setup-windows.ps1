@@ -58,7 +58,11 @@ param(
     # PowerToys installation frequently breaks with
     # little explanation, use this to skip if you
     # would like to install everything else
-    [switch] $NoPowerToys
+    [switch] $NoPowerToys,
+
+    # Install the Copilot-compatible LSP toolchain.
+    # Disabled by default; opt in when the repo is ready.
+    [switch] $InstallLsp
 )
 
 $ErrorActionPreference = "Stop"
@@ -110,6 +114,14 @@ winget configure --enable
 # and what is intentionally left out (e.g. Git), see the file itself.
 $PackagesConfig = "$PSScriptRoot\packages.dsc.yaml"
 winget configure $PackagesConfig
+
+if ($InstallLsp) {
+    $LspSetupScript = Join-Path $PSScriptRoot "..\.lsp\install-lsp-servers.ps1"
+    & $LspSetupScript
+}
+else {
+    Write-Host "Skipping LSP bootstrap; pass -InstallLsp to enable it."
+}
 
 #
 # Windows Terminal (WT) Setup

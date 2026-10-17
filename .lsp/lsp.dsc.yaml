@@ -1,0 +1,38 @@
+properties:
+  configurationVersion: 0.2.0
+  resources:
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: InstallNodeJSLTS
+      directives:
+        description: Install Node.js LTS for npm-based LSP packages
+      settings:
+        id: OpenJS.NodeJS.LTS
+        source: winget
+        useLatest: true
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: InstallLLVM
+      directives:
+        description: Install LLVM/clangd for C/C++ symbol intelligence
+      settings:
+        id: LLVM.LLVM
+        source: winget
+        useLatest: true
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: InstallGo
+      directives:
+        description: Install Go for the official Docker Language Server build/install flow
+      settings:
+        id: GoLang.Go
+        source: winget
+        useLatest: true
+
+    - resource: Microsoft.WinGet.DSC/WinGetPackage
+      id: InstallDotNetSDK
+      directives:
+        description: Install .NET SDK for OmniSharp and other .NET-based LSPs
+      settings:
+        id: Microsoft.DotNet.SDK.10
+        source: winget
+        useLatest: true

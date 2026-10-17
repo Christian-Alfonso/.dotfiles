@@ -1,0 +1,79 @@
+{
+  "lspServers": {
+    "rust": {
+      "command": "rust-analyzer",
+      "fileExtensions": {
+        ".rs": "rust"
+      }
+    },
+    "python": {
+      "command": "pyright-langserver",
+      "args": ["--stdio"],
+      "fileExtensions": {
+        ".py": "python",
+        ".pyi": "python",
+        ".pyw": "python"
+      }
+    },
+    "ccpp": {
+      "command": "clangd",
+      "fileExtensions": {
+        ".c": "c",
+        ".h": "c",
+        ".cc": "cpp",
+        ".cpp": "cpp",
+        ".cxx": "cpp",
+        ".hh": "cpp",
+        ".hpp": "cpp"
+      }
+    },
+    "typescript": {
+      "command": "typescript-language-server",
+      "args": ["--stdio"],
+      "fileExtensions": {
+        ".ts": "typescript",
+        ".tsx": "typescriptreact",
+        ".js": "javascript",
+        ".jsx": "javascriptreact",
+        ".mjs": "javascript",
+        ".cjs": "javascript"
+      }
+    },
+    "lua": {
+      "command": "lua-language-server",
+      "args": ["--stdio"],
+      "fileExtensions": {
+        ".lua": "lua",
+        ".luau": "lua"
+      }
+    },
+    "powershell": {
+      "command": "PowerShellEditorServices",
+      "args": ["--stdio"],
+      "fileExtensions": {
+        ".ps1": "powershell",
+        ".psm1": "powershell",
+        ".psd1": "powershell",
+        ".ps1xml": "powershell"
+      }
+    },
+    "csharp": {
+      "command": "omnisharp",
+      "args": ["--languageserver"],
+      "fileExtensions": {
+        ".cs": "csharp",
+        ".csx": "csharp",
+        ".csproj": "csharp",
+        ".sln": "csharp"
+      }
+    },
+    "dockerfile": {
+      "command": "docker-langserver",
+      "args": ["--stdio"],
+      "fileExtensions": {
+        ".dockerfile": "dockerfile",
+        "Dockerfile": "dockerfile"
+      }
+    }
+  }
+}
