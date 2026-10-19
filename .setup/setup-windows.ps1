@@ -67,6 +67,29 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+$SetupLogPath = Join-Path $PSScriptRoot "setup-windows.log"
+if (Test-Path $SetupLogPath) {
+    Remove-Item -Path $SetupLogPath -Force
+}
+
+Start-Transcript -Path $SetupLogPath -Force | Out-Null
+
+trap {
+    $LastExitCodeValue = if ($null -ne $LASTEXITCODE) { [string]$LASTEXITCODE } else { "N/A" }
+    Write-Host ""
+    Write-Host "Setup script failed at $(Get-Date -Format o)."
+    Write-Host "Last external command exit code: $LastExitCodeValue"
+
+    try {
+        Stop-Transcript | Out-Null
+    }
+    catch {
+        # Transcript stop is best-effort when the process is already terminating.
+    }
+
+    throw
+}
+
 #
 # Initial Setup
 #
@@ -465,4 +488,12 @@ if ($ManualInstallsRequired -gt 0) {
 # (always download new ones on next script execution so these are not stale)
 Remove-Item -Recurse -Force $TempFolder
 
+if ($null -ne $LASTEXITCODE) {
+    Write-Host "Final external command exit code: $LASTEXITCODE"
+}
+else {
+    Write-Host "Final external command exit code: N/A"
+}
+
 Write-Host "Configuration complete!"
+Stop-Transcript | Out-Null
