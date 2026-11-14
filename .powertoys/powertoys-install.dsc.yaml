@@ -1,0 +1,15 @@
+# powertoys-install.dsc.yaml
+#
+# Install PowerToys before patching and running the configuration DSC module.
+properties:
+    configurationVersion: 0.2.0
+    resources:
+        - resource: Microsoft.WinGet.DSC/WinGetPackage
+          id: InstallPowerToys
+          directives:
+              description: Install PowerToys
+              allowPrerelease: true
+          settings:
+              id: Microsoft.PowerToys
+              source: winget
+              useLatest: true
