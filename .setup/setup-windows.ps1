@@ -7,7 +7,7 @@
 
 # Requirements for complete setup that must be manually installed:
 #   - PowerShell 7 (to guarantee compatibility with this script)
-#   - WSL with wslc support (to run the Tmux container)
+#   - WSL 2 (to run Tmux in the custom Alpine distro)
 #
 # Can install these quickly through the following commands:
 #   winget install --id Microsoft.PowerShell --source winget
@@ -15,8 +15,7 @@
 #   winget install --id Microsoft.PowerShell.Preview --source winget
 #
 #   wsl --install
-#   wsl --update --pre-release
-#   (wslc is a pre-release feature at the time of writing)
+#   wsl --update
 #
 # Then restart your machine for WSL to finish installing.
 #
@@ -349,10 +348,10 @@ else {
         -Force
 }
 
-# Install Tmux as a WSL2 container (WSLC), as there
+# Install Tmux in a custom Alpine WSL distro, as there
 # is no native support for Tmux on Windows
-$TmuxInstallContainer = Convert-Path "$PSScriptRoot\..\.tmux\install-tmux-container.ps1"
-& $TmuxInstallContainer
+$TmuxInstallScript = Convert-Path "$PSScriptRoot\..\.tmux\install-tmux-custom-alpine.ps1"
+& $TmuxInstallScript
 
 #
 # Manual Configurations/Installations

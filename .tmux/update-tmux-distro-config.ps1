@@ -1,5 +1,5 @@
 #
-# update-config-tmux-container.ps1
+# update-tmux-distro-config.ps1
 #
 # Script for updating the .tmux.conf config file in the Tmux WSL distro.
 # Also regenerates the machine-local .wsl.tmux.conf with current WSL distro bindings.
@@ -16,7 +16,7 @@ $InstalledDistros = wsl --list --quiet 2>&1 |
     Where-Object { $_ -match '\S' }
 
 if ($InstalledDistros -notcontains $TmuxDistroName) {
-    throw "WSL distro '$TmuxDistroName' is not installed. Run install-tmux-container.ps1 first."
+    throw "WSL distro '$TmuxDistroName' is not installed. Run install-tmux-custom-alpine.ps1 first."
 }
 
 Write-Host "Copying .tmux.conf into '$TmuxDistroName' WSL distro..."

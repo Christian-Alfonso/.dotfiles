@@ -7,7 +7,7 @@
 # not strictly by install date). No state file is needed.
 #
 # The generated file is gitignored (machine-specific) and copied into the
-# tmux WSL distro by install-tmux-container.ps1 and update-config-tmux-container.ps1.
+# tmux WSL distro by install-tmux-custom-alpine.ps1 and update-tmux-distro-config.ps1.
 # ~/.tmux.conf sources it via `source-file -q`, which silently skips the file
 # if it does not exist - safe on non-Windows tmux installations.
 #

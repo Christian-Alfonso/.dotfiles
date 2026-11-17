@@ -1,9 +1,9 @@
 #
-# install-tmux-container.ps1
+# install-tmux-custom-alpine.ps1
 #
 # Script for automatically building and installing a minimal Alpine WSL distro
-# to act as a local tmux service. Using a WSL distro instead of an OCI container
-# provides full Windows interop - pwsh.exe works, /mnt/c is mounted automatically.
+# to act as a local tmux service. The custom Alpine distro provides full Windows
+# interop - pwsh.exe works, /mnt/c is mounted automatically.
 #
 
 [CmdletBinding()]
