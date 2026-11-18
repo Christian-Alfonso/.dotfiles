@@ -12,6 +12,116 @@ param(
     [switch] $NoCleanup
 )
 
+function ConvertToGitMsysPath {
+    param([Parameter(Mandatory)][string] $WindowsPath)
+
+    # Git's bundled GPG expects Git/MSYS-style paths for its isolated keyring.
+    $MsysPath = $WindowsPath.Replace('\', '/')
+    if ($MsysPath -match '^([A-Za-z]):/(.*)$') {
+        return "/$($Matches[1].ToLowerInvariant())/$($Matches[2])"
+    }
+    return $MsysPath
+}
+
+function Assert-AlpineRootfsHash {
+    param(
+        [Parameter(Mandatory)][string] $LatestReleasesYaml,
+        [Parameter(Mandatory)][string] $DownloadPath
+    )
+
+    # The release metadata is the source of the expected hash for this exact
+    # minirootfs tarball. A mismatch means the downloaded file was changed.
+    $ReleaseSha256 = [regex]::Match(
+        $LatestReleasesYaml,
+        '(?ms)flavor:\s*alpine-minirootfs.*?\bsha256:\s*([0-9a-fA-F]{64})'
+    ).Groups[1].Value
+    if (!$ReleaseSha256) {
+        throw "Could not determine the Alpine minirootfs SHA-256 hash from release metadata"
+    }
+
+    $ActualSha256 = (Get-FileHash -Algorithm SHA256 -LiteralPath $DownloadPath).Hash
+    if ($ActualSha256 -ne $ReleaseSha256.ToUpperInvariant()) {
+        throw "Alpine minirootfs SHA-256 mismatch: expected $ReleaseSha256, got $ActualSha256"
+    }
+
+    Write-Host "Alpine release SHA-256 verified."
+}
+
+function Assert-AlpineRootfsSignature {
+    param(
+        [Parameter(Mandatory)][string] $AlpineBaseUrl,
+        [Parameter(Mandatory)][string] $MinirootfsFile,
+        [Parameter(Mandatory)][string] $DownloadPath,
+        [Parameter(Mandatory)][string] $TempFolder
+    )
+
+    # Verify the tarball with Alpine's detached signature and a pinned public-key
+    # fingerprint. GPG uses an isolated keyring so machine-wide trust settings
+    # cannot affect the result.
+    $AlpineSigningKeyUrl = "https://alpinelinux.org/keys/ncopa.asc"
+    $AlpineSigningFingerprint = "0482D84022F52DF1C4E7CD43293ACD0907D9495A"
+    $SignaturePath = "$DownloadPath.asc"
+    $AlpineSigningKey = "$TempFolder\alpine-ncopa.asc"
+    $GnupgHome = Join-Path $TempFolder "alpine-gpg"
+
+    Write-Host "Downloading Alpine release signature..."
+    Invoke-WebRequest "$AlpineBaseUrl/$MinirootfsFile.asc" -OutFile $SignaturePath -UseBasicParsing
+    Invoke-WebRequest $AlpineSigningKeyUrl -OutFile $AlpineSigningKey -UseBasicParsing
+
+    $GpgCommand = $null
+    $GpgOnPath = Get-Command gpg.exe -ErrorAction SilentlyContinue
+    if ($GpgOnPath) {
+        $GpgCommand = $GpgOnPath.Source
+    }
+    else {
+        $GitGpg = "$env:ProgramFiles\Git\usr\bin\gpg.exe"
+        if (Test-Path $GitGpg) {
+            $GpgCommand = $GitGpg
+        }
+    }
+    if (!$GpgCommand) {
+        throw "GPG is required to verify the Alpine release signature. Git for Windows was not found."
+    }
+
+    New-Item -ItemType Directory -Force -Path $GnupgHome | Out-Null
+
+    $GnupgHomeArg = ConvertToGitMsysPath $GnupgHome
+    $AlpineSigningKeyArg = ConvertToGitMsysPath $AlpineSigningKey
+    $SignaturePathArg = ConvertToGitMsysPath $SignaturePath
+    $DownloadPathArg = ConvertToGitMsysPath $DownloadPath
+
+    & $GpgCommand --batch --homedir $GnupgHomeArg --import $AlpineSigningKeyArg 2>&1 | Out-Null
+    if ($LASTEXITCODE -ne 0) {
+        throw "Could not import the pinned Alpine signing key."
+    }
+
+    # Accept only the public key with the known Alpine release-signing fingerprint.
+    $KeyListing = & $GpgCommand --batch --homedir $GnupgHomeArg --with-colons --fingerprint
+    $PinnedKeyFound = $false
+    foreach ($Line in $KeyListing) {
+        $FingerprintMatch = [regex]::Match($Line, '^fpr:::::::::([0-9A-F]{40}):$')
+        if ($FingerprintMatch.Success -and
+            $FingerprintMatch.Groups[1].Value -eq $AlpineSigningFingerprint) {
+            $PinnedKeyFound = $true
+            break
+        }
+    }
+    if (!$PinnedKeyFound) {
+        throw "The imported key did not match the pinned Alpine signing fingerprint $AlpineSigningFingerprint."
+    }
+
+    $VerificationOutput = & $GpgCommand --batch --homedir $GnupgHomeArg --status-fd 1 --verify $SignaturePathArg $DownloadPathArg 2>&1
+    $ValidSignature = $VerificationOutput -join "`n" -match
+        "\[GNUPG:\] VALIDSIG $AlpineSigningFingerprint"
+    if ($LASTEXITCODE -ne 0 -or !$ValidSignature) {
+        throw "Alpine release signature verification failed:`n$($VerificationOutput -join "`n")"
+    }
+
+    Write-Host "Alpine release signature verified (fingerprint $AlpineSigningFingerprint)."
+    Remove-Item -Force $SignaturePath, $AlpineSigningKey -ErrorAction SilentlyContinue
+    Remove-Item -Recurse -Force $GnupgHome -ErrorAction SilentlyContinue
+}
+
 #
 # Tmux WSL Distro Setup
 #
@@ -57,6 +167,16 @@ $DownloadPath = "$TempFolder\$MinirootfsFile"
 
 Write-Host "Downloading $MinirootfsFile..."
 Invoke-WebRequest "$AlpineBaseUrl/$MinirootfsFile" -OutFile $DownloadPath -UseBasicParsing
+
+# Validate the downloaded bytes against Alpine's signed release metadata.
+Assert-AlpineRootfsHash -LatestReleasesYaml $LatestReleasesYaml -DownloadPath $DownloadPath
+
+# Authenticate the same tarball with Alpine's pinned release-signing key.
+Assert-AlpineRootfsSignature `
+    -AlpineBaseUrl $AlpineBaseUrl `
+    -MinirootfsFile $MinirootfsFile `
+    -DownloadPath $DownloadPath `
+    -TempFolder $TempFolder
 
 # Import the Alpine tarball as a WSL distro
 Write-Host "Importing Alpine as WSL distro '$TmuxDistroName'..."
