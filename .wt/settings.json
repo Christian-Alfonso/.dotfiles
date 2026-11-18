@@ -147,7 +147,7 @@
             "backgroundImage": "desktopWallpaper",
             "backgroundImageOpacity": 0.006,
             "backgroundImageStretchMode": "uniformToFill",
-            "colorScheme": "VS Code",
+            "colorScheme": "VSCode",
             "cursorShape": "bar",
             "font": 
             {
@@ -197,7 +197,7 @@
             "cyan": "#56B6C2",
             "foreground": "#D4D4D4",
             "green": "#6A9955",
-            "name": "VS Code",
+            "name": "VSCode",
             "purple": "#C586C0",
             "red": "#F44747",
             "selectionBackground": "#264F78",
