@@ -22,7 +22,6 @@
 # From:
 #   https://learn.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.5#install-powershell-using-winget-recommended
 #   https://learn.microsoft.com/en-us/windows/wsl/install
-#   https://learn.microsoft.com/en-us/windows/wsl/tutorials/wsl-containers
 
 #Requires -Version 7.0
 #Requires -RunAsAdministrator
