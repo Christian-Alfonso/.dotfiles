@@ -382,7 +382,7 @@ if ($ManualInstallsRequired -gt 0) {
 
     Write-Warning $ManualInstallInstructions
 
-    $ManualInstallConfirmation = Read-Host "Would you like to continue with manual installations? (y/n)?"
+    $ManualInstallConfirmation = Read-Host "Would you like to continue with manual installations? [y/N]"
     if ($ManualInstallConfirmation -eq 'y' -or $ManualInstallConfirmation -eq 'yes') {
         #
         # Font Installation (DroidSansMono Nerd Font)
@@ -427,7 +427,7 @@ if ($ManualInstallsRequired -gt 0) {
 
             Write-Warning $FontInstallInstructions
 
-            $FontInstallConfirmation = Read-Host "Would you like to launch the font installation windows (y/n)?"
+            $FontInstallConfirmation = Read-Host "Would you like to launch the font installation windows? [y/N]"
             if ($FontInstallConfirmation -eq 'y' -or $FontInstallConfirmation -eq 'yes') {
                 Write-Host "Launching windows, please click `"Install`" on each..."
 

@@ -138,7 +138,7 @@ if (!$NoCleanup) {
         Where-Object { $_ -match '\S' }
 
     if ($RunningDistros -contains $TmuxDistroName) {
-        $Confirm = Read-Host "Warning: the '$TmuxDistroName' WSL distro is currently running. Reinstalling will terminate all active tmux sessions. Continue? (y/n)"
+        $Confirm = Read-Host "Warning: the '$TmuxDistroName' WSL distro is currently running. Reinstalling will terminate all active tmux sessions. Continue? [y/N]"
         if ($Confirm -ne 'y' -and $Confirm -ne 'yes') {
             Write-Host "Aborted."
             return
