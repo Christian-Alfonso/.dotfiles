@@ -350,7 +350,7 @@ else {
 # Install Tmux in a custom Alpine WSL distro, as there
 # is no native support for Tmux on Windows
 $TmuxInstallScript = Convert-Path "$PSScriptRoot\..\.tmux\install-tmux-custom-alpine.ps1"
-& $TmuxInstallScript
+& $TmuxInstallScript -ScheduleAsUser
 
 #
 # Manual Configurations/Installations

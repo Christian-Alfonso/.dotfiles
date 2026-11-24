@@ -9,8 +9,37 @@
 [CmdletBinding()]
 param(
     # Keep the existing WSL distro as-is instead of unregistering and reimporting from scratch
-    [switch] $NoCleanup
+    [switch] $NoCleanup,
+
+    # Schedule this script under the logged-on account as a limited, non-elevated task.
+    [switch] $ScheduleAsUser,
+
+    # Fail instead of prompting when the tmux distro is running.
+    [switch] $NoPrompt
 )
+
+if ($ScheduleAsUser) {
+    Import-Module (Join-Path $PSScriptRoot "..\modules\ScheduledUserTask\ScheduledUserTask.psm1") -Force
+
+    $WorkerArguments = "-NoPrompt"
+    if ($NoCleanup) {
+        $WorkerArguments = "-NoCleanup $WorkerArguments"
+    }
+
+    $ExitCode = Invoke-TemporaryUserTask `
+        -TaskName "Dotfiles-Tmux-Alpine-Install" `
+        -ScriptPath $PSCommandPath `
+        -ScriptArguments $WorkerArguments `
+        -Description "Install the dotfiles tmux Alpine WSL distro as the logged-on user" `
+        -TimeoutSeconds 1800
+
+    if ($ExitCode -ne 0) {
+        throw "User-scoped tmux Alpine installation failed with exit code $ExitCode"
+    }
+
+    Write-Host "User-scoped tmux Alpine installation completed successfully."
+    return
+}
 
 function ConvertToGitMsysPath {
     param([Parameter(Mandatory)][string] $WindowsPath)
@@ -65,8 +94,8 @@ function Assert-AlpineRootfsSignature {
     $GnupgHome = Join-Path $TempFolder "alpine-gpg"
 
     Write-Host "Downloading Alpine release signature..."
-    Invoke-WebRequest "$AlpineBaseUrl/$MinirootfsFile.asc" -OutFile $SignaturePath -UseBasicParsing
-    Invoke-WebRequest $AlpineSigningKeyUrl -OutFile $AlpineSigningKey -UseBasicParsing
+    Invoke-WebRequest "$AlpineBaseUrl/$MinirootfsFile.asc" -OutFile $SignaturePath -UseBasicParsing -TimeoutSec 300
+    Invoke-WebRequest $AlpineSigningKeyUrl -OutFile $AlpineSigningKey -UseBasicParsing -TimeoutSec 300
 
     $GpgCommand = $null
     $GpgOnPath = Get-Command gpg.exe -ErrorAction SilentlyContinue
@@ -138,6 +167,10 @@ if (!$NoCleanup) {
         Where-Object { $_ -match '\S' }
 
     if ($RunningDistros -contains $TmuxDistroName) {
+        if ($NoPrompt) {
+            throw "The '$TmuxDistroName' WSL distro is running; refusing to reinstall it non-interactively."
+        }
+
         $Confirm = Read-Host "Warning: the '$TmuxDistroName' WSL distro is currently running. Reinstalling will terminate all active tmux sessions. Continue? [y/N]"
         if ($Confirm -ne 'y' -and $Confirm -ne 'yes') {
             Write-Host "Aborted."
@@ -154,7 +187,7 @@ if (!$NoCleanup) {
 Write-Host "Fetching latest Alpine release info..."
 $AlpineBaseUrl = "https://dl-cdn.alpinelinux.org/alpine/latest-stable/releases/x86_64"
 $LatestReleasesYaml = [System.Text.Encoding]::UTF8.GetString(
-    (Invoke-WebRequest "$AlpineBaseUrl/latest-releases.yaml" -UseBasicParsing).Content
+    (Invoke-WebRequest "$AlpineBaseUrl/latest-releases.yaml" -UseBasicParsing -TimeoutSec 300).Content
 )
 
 $MinirootfsFile = [regex]::Match($LatestReleasesYaml, 'alpine-minirootfs-[\d.]+-x86_64\.tar\.gz').Value
@@ -166,7 +199,7 @@ $TempFolder = New-Item -ItemType Directory -Force -Path "$PSScriptRoot\..\.temp"
 $DownloadPath = "$TempFolder\$MinirootfsFile"
 
 Write-Host "Downloading $MinirootfsFile..."
-Invoke-WebRequest "$AlpineBaseUrl/$MinirootfsFile" -OutFile $DownloadPath -UseBasicParsing
+Invoke-WebRequest "$AlpineBaseUrl/$MinirootfsFile" -OutFile $DownloadPath -UseBasicParsing -TimeoutSec 300
 
 # Validate the downloaded bytes against Alpine's signed release metadata.
 Assert-AlpineRootfsHash -LatestReleasesYaml $LatestReleasesYaml -DownloadPath $DownloadPath
