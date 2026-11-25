@@ -19,7 +19,7 @@ param(
 )
 
 if ($ScheduleAsUser) {
-    Import-Module (Join-Path $PSScriptRoot "..\modules\ScheduledUserTask\ScheduledUserTask.psm1") -Force
+    Import-Module (Join-Path $PSScriptRoot "..\.setup\modules\ScheduledUserTask\ScheduledUserTask.psm1") -Force
 
     $WorkerArguments = "-NoPrompt"
     if ($NoCleanup) {

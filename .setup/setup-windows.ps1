@@ -305,11 +305,11 @@ if (!$NoVSCodeInsiders) {
 # Install Neovim with dependencies using its own script, which include
 # installing VS 2022 Build Tools, Windows 11 SDK, and adding directories
 # to the system PATH, since WinGet does not always do this automatically.
-$NeovimInstallDepConfig = Convert-Path "$PSScriptRoot\..\.nvim\InstallWithDependencies.ps1"
+$NeovimInstallDepConfig = Convert-Path "$PSScriptRoot\..\.nvim\setup\InstallWithDependencies.ps1"
 & $NeovimInstallDepConfig
 
 # Copy over Neovim configuration to %LocalAppData%\nvim using its own script
-$NeovimCopyConfig = Convert-Path "$PSScriptRoot\..\.nvim\CopyConfiguration.ps1"
+$NeovimCopyConfig = Convert-Path "$PSScriptRoot\..\.nvim\setup\CopyConfiguration.ps1"
 & $NeovimCopyConfig
 
 # Install PowerToys from configuration

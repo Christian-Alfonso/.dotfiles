@@ -107,7 +107,7 @@ Write-Host "Installing language-server toolchain for Copilot CLI-compatible symb
 winget configure --enable
 
 # Install Node.js and LLVM through WinGet DSC as the repository already does for
-# its other tooling. This is the same pattern used by .nvim/neovim.dsc.yaml.
+# its other tooling. This is the same pattern used by .nvim/setup/neovim.dsc.yaml.
 $LspConfig = Join-Path $PSScriptRoot "lsp.dsc.yaml"
 winget configure $LspConfig
 
